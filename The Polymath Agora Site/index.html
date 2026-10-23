@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Agora des Polymathes | The Polymath Agora | أغورا الموسوعيين — ENS Tizi Ouzou</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond, Inter, JetBrains Mono + Cairo & Amiri for Arabic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- html2pdf.js for PDF Generation (Membership Card & Official Charter) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Supabase JS v2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#070A0F',
+                        midnight: '#0D131F',
+                        slateCard: '#131B2E',
+                        gold: {
+                            light: '#E5C77B',
+                            DEFAULT: '#C9A24D',
+                            dark: '#9A782C',
+                        },
+                        parchment: '#F4F1EA',
+                        ivory: '#FAF8F5'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', '"Amiri"', 'Georgia', 'serif'],
+                        sans: ['"Inter"', '"Cairo"', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', '"Cairo"', 'monospace'],
+                        arabic: ['"Cairo"', 'sans-serif'],
+                        arabicSerif: ['"Amiri"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #070A0F;
+            color: #F4F1EA;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        html[dir="rtl"] body {
+            font-family: 'Cairo', sans-serif;
+        }
+        html[dir="rtl"] .font-serif {
+            font-family: 'Amiri', 'Cairo', serif;
+            line-height: 1.35;
+        }
+        .bg-grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(201, 162, 77, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(201, 162, 77, 0.05) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FAF8F5 0%, #E5C77B 50%, #C9A24D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow {
+            border: 1px solid rgba(201, 162, 77, 0.28);
+            box-shadow: 0 10px 35px -10px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(201, 162, 77, 0.12);
+        }
+        .gold-border-glow:hover {
+            border-color: rgba(201, 162, 77, 0.65);
+            box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.85), 0 0 25px -3px rgba(201, 162, 77, 0.22);
+        }
+        .glass-nav {
+            background: rgba(7, 10, 15, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(201, 162, 77, 0.18);
+        }
+        .wing-tab-active {
+            background: linear-gradient(135deg, rgba(201, 162, 77, 0.22), rgba(19, 27, 46, 0.9));
+            border-color: #C9A24D !important;
+            color: #FAF8F5 !important;
+        }
+        .lang-btn-active {
+            background-color: #C9A24D !important;
+            color: #070A0F !important;
+            font-weight: 700 !important;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070A0F;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #26324B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C9A24D;
+        }
+    </style>
+</head>
+<body class="bg-obsidian text-parchment antialiased selection:bg-gold selection:text-obsidian">
+
+    <!-- Institutional Top Bar -->
+    <div class="bg-midnight/95 border-b border-gold/15 py-2 px-4 text-xs font-mono tracking-wider text-parchment/75">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span data-i18n="topbar_inst">ÉCOLE NORMALE SUPÉRIEURE (ENS) DE TIZI OUZOU • SOCIÉTÉ SCIENTIFIQUE, LITTÉRAIRE & ARTISTIQUE</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-4">
+                <a href="https://www.instagram.com/polymath.agora?mdxt=MTZnM2kxaGMyeGczaA==" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex items-center gap-1.5 text-gold/90 hover:text-gold transition-colors">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>@polymath.agora</span>
+                </a>
+                <span class="hidden sm:inline text-parchment/30">|</span>
+                <button onclick="openCharterModal()" class="underline hover:text-gold transition-colors cursor-pointer" data-i18n="topbar_charter">
+                    Statut & Agrément Officiel
+                </button>
+                <span class="text-parchment/30">|</span>
+                <button onclick="openAdminModal()" class="px-2.5 py-1 rounded bg-gold/15 border border-gold/35 text-gold hover:bg-gold hover:text-obsidian font-semibold transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-user-shield text-[10px]"></i>
+                    <span data-i18n="topbar_admin">Accès Bureau</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Sticky Navigation -->
+    <header class="sticky top-0 z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
+            <!-- Brand Crest & Title -->
+            <a href="#" class="flex items-center gap-3 group shrink-0">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gold/25 to-midnight border border-gold/50 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                    <svg class="w-7 h-7 text-gold" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 30H30M8 26H28M11 26V14M18 26V14M25 26V14M6 14H30L18 5L6 14Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="18" cy="10.5" r="1.5" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="block font-serif text-lg sm:text-2xl font-bold tracking-wide text-ivory leading-none" data-i18n="nav_brand">
+                        THE POLYMATH AGORA
+                    </span>
+                    <span class="block font-mono text-[10px] tracking-[0.18em] text-gold uppercase mt-1" data-i18n="nav_subtitle">
+                        L'Agora des Polymathes • ENS Tizi Ouzou
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden xl:flex items-center gap-6 text-sm font-medium text-parchment/80">
+                <a href="#manifesto" class="hover:text-gold transition-colors" data-i18n="nav_manifesto">Le Manifeste</a>
+                <a href="#wings" class="hover:text-gold transition-colors" data-i18n="nav_wings">Les 3 Pôles</a>
+                <a href="#quiz" class="hover:text-gold transition-colors" data-i18n="nav_diagnostic">Orientation</a>
+                <a href="#roadmap" class="hover:text-gold transition-colors" data-i18n="nav_events">Programme</a>
+                <a href="#governance" class="hover:text-gold transition-colors" data-i18n="nav_governance">Gouvernance</a>
+            </nav>
+
+            <!-- Action Controls: Trilingual Switcher (FR / EN / AR) & Join CTA -->
+            <div class="flex items-center gap-2.5">
+                <div class="inline-flex items-center rounded-lg border border-gold/35 bg-midnight/90 p-0.5 text-xs font-mono" role="group" aria-label="Language selector">
+                    <button type="button" id="langBtn-fr" onclick="setLanguage('fr')" class="px-2.5 py-1 rounded-md text-gold transition-all lang-btn-active">FR</button>
+                    <button type="button" id="langBtn-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded-md text-gold hover:text-ivory transition-all">EN</button>
+                    <button type="button" id="langBtn-ar" onclick="setLanguage('ar')" class="px-2.5 py-1 rounded-md text-gold hover:text-ivory transition-all font-arabic">عربي</button>
+                </div>
+
+                <a href="#join" class="hidden sm:inline-flex px-4 sm:px-5 py-2.5 rounded-lg bg-gradient-to-r from-gold to-gold-dark text-obsidian font-semibold text-xs sm:text-sm tracking-wide shadow-md hover:brightness-110 transition-all items-center gap-2">
+                    <span data-i18n="nav_cta">Rejoindre l'Agora</span>
+                    <i class="fa-solid fa-arrow-right text-xs rtl:rotate-180"></i>
+                </a>
+
+                <!-- Mobile Menu Trigger -->
+                <button onclick="toggleMobileMenu()" class="xl:hidden p-2 rounded-lg border border-gold/25 text-parchment hover:text-gold" aria-label="Menu">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobileMenu" class="hidden xl:hidden bg-midnight border-b border-gold/20 px-6 py-4 space-y-3">
+            <a href="#manifesto" onclick="toggleMobileMenu()" class="block py-2 text-sm text-parchment hover:text-gold border-b border-white/5" data-i18n="nav_manifesto">Le Manifeste</a>
+            <a href="#wings" onclick="toggleMobileMenu()" class="block py-2 text-sm text-parchment hover:text-gold border-b border-white/5" data-i18n="nav_wings">Les 3 Pôles (Forum, Lab, Studio)</a>
+            <a href="#quiz" onclick="toggleMobileMenu()" class="block py-2 text-sm text-parchment hover:text-gold border-b border-white/5" data-i18n="nav_diagnostic">Diagnostic d'Orientation</a>
+            <a href="#roadmap" onclick="toggleMobileMenu()" class="block py-2 text-sm text-parchment hover:text-gold border-b border-white/5" data-i18n="nav_events">Programme & Événements</a>
+            <a href="#governance" onclick="toggleMobileMenu()" class="block py-2 text-sm text-parchment hover:text-gold border-b border-white/5" data-i18n="nav_governance">Gouvernance & Statut</a>
+            <div class="pt-2 flex items-center justify-between">
+                <a href="#join" onclick="toggleMobileMenu()" class="text-sm font-semibold text-gold" data-i18n="nav_cta">Rejoindre l'Agora →</a>
+                <button onclick="toggleMobileMenu(); openAdminModal();" class="text-xs font-mono text-parchment/70 underline hover:text-gold" data-i18n="topbar_admin">Accès Bureau</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-grid-pattern pt-12 pb-20 lg:py-24 border-b border-gold/15 overflow-hidden">
+        <!-- Ambient Radial Glow -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-gold/10 blur-[130px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Grand Editorial Pitch -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-mono uppercase tracking-widest">
+                        <i class="fa-solid fa-landmark"></i>
+                        <span data-i18n="hero_badge">La Première Société Pluridisciplinaire de l'ENS</span>
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
+                        <span class="block text-ivory" data-i18n="hero_title_1">La Voix des Lettres & des Arts.</span>
+                        <span class="block gold-gradient-text italic" data-i18n="hero_title_2">L'Intelligence des Systèmes.</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-parchment/80 leading-relaxed max-w-2xl" data-i18n="hero_desc">
+                        Bienvenue à <strong class="text-ivory font-semibold">L’Agora des Polymathes</strong> (<em class="text-gold">The Polymath Agora</em>). Plus qu’un club étudiant, nous sommes le carrefour intellectuel, scientifique et artistique de l’ENS Tizi Ouzou où l'éloquence d'amphithéâtre, la création littéraire, les arts vivants et la maîtrise technologique convergent pour former les leaders de demain.
+                    </p>
+
+                    <!-- Primary Hero CTAs -->
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#join" class="px-7 py-4 rounded-xl bg-gradient-to-r from-gold via-gold-light to-gold text-obsidian font-bold text-sm sm:text-base tracking-wide shadow-lg shadow-gold/15 hover:scale-[1.02] transition-all flex items-center gap-3">
+                            <span data-i18n="hero_btn_join">Obtenir ma Carte de Membre</span>
+                            <i class="fa-solid fa-id-card"></i>
+                        </a>
+                        <a href="#wings" class="px-6 py-4 rounded-xl bg-slateCard/90 border border-gold/30 hover:border-gold text-ivory font-medium text-sm sm:text-base transition-all flex items-center gap-2.5">
+                            <span data-i18n="hero_btn_explore">Explorer les 3 Pôles</span>
+                            <i class="fa-solid fa-compass text-gold"></i>
+                        </a>
+                    </div>
+
+                    <!-- Institutional Key Metrics -->
+                    <div class="pt-6 grid grid-cols-3 gap-4 border-t border-white/10 max-w-xl">
+                        <div>
+                            <div class="font-serif text-2xl sm:text-3xl font-bold text-gold" data-i18n="stat_1_val">3 Pôles</div>
+                            <div class="text-xs text-parchment/65 font-mono mt-0.5" data-i18n="stat_1">Forum • Lab • Studio</div>
+                        </div>
+                        <div>
+                            <div class="font-serif text-2xl sm:text-3xl font-bold text-ivory">FR • EN • AR</div>
+                            <div class="text-xs text-parchment/65 font-mono mt-0.5" data-i18n="stat_2">Tribune Trilingue</div>
+                        </div>
+                        <div>
+                            <div class="font-serif text-2xl sm:text-3xl font-bold text-gold">100%</div>
+                            <div class="text-xs text-parchment/65 font-mono mt-0.5" data-i18n="stat_3">Toutes Filières & Arts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Architectural Triad Showcase -->
+                <div class="lg:col-span-5">
+                    <div class="bg-slateCard/90 gold-border-glow rounded-2xl p-6 sm:p-7 relative">
+                        <div class="flex items-center justify-between pb-4 mb-5 border-b border-white/10">
+                            <div>
+                                <span class="text-[11px] font-mono uppercase tracking-widest text-gold block" data-i18n="triad_header">Architecture Opérationnelle</span>
+                                <h2 class="font-serif text-2xl font-bold text-ivory" data-i18n="triad_title">La Triade du Polymathe</h2>
+                            </div>
+                            <span class="px-2.5 py-1 rounded bg-gold/15 border border-gold/30 font-mono text-xs text-gold">ENS-TO</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Wing 1 Mini Card -->
+                            <div onclick="selectWingAndScroll('forum')" class="group p-4 rounded-xl bg-midnight/90 border border-white/10 hover:border-gold/60 transition-all cursor-pointer">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-gold shrink-0">
+                                            <i class="fa-solid fa-microphone-lines"></i>
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-gold/15 text-gold" data-i18n="pole_01_badge">Pôle 01</span>
+                                                <h3 class="font-serif text-xl font-bold text-ivory group-hover:text-gold transition-colors">THE FORUM</h3>
+                                            </div>
+                                            <p class="text-xs text-parchment/75 mt-1" data-i18n="triad_forum_desc">Art oratoire, rhétorique, débats contradictoires (FR/EN/AR) & leadership en amphithéâtre.</p>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-xs text-parchment/40 group-hover:text-gold group-hover:translate-x-1 rtl:rotate-180 transition-all mt-2"></i>
+                                </div>
+                            </div>
+
+                            <!-- Wing 2 Mini Card -->
+                            <div onclick="selectWingAndScroll('lab')" class="group p-4 rounded-xl bg-midnight/90 border border-white/10 hover:border-gold/60 transition-all cursor-pointer">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shrink-0">
+                                            <i class="fa-solid fa-shield-halved"></i>
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300" data-i18n="pole_02_badge">Pôle 02</span>
+                                                <h3 class="font-serif text-xl font-bold text-ivory group-hover:text-cyan-300 transition-colors">THE LAB</h3>
+                                            </div>
+                                            <p class="text-xs text-parchment/75 mt-1" data-i18n="triad_lab_desc">IA éthique pour chercheurs, cybersécurité pratique (« The Architect's Key »), vie privée & Linux.</p>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-xs text-parchment/40 group-hover:text-cyan-300 group-hover:translate-x-1 rtl:rotate-180 transition-all mt-2"></i>
+                                </div>
+                            </div>
+
+                            <!-- Wing 3 Mini Card (Expanded Artistic, Literary, Theatrical & Media Scope) -->
+                            <div onclick="selectWingAndScroll('studio')" class="group p-4 rounded-xl bg-midnight/90 border border-white/10 hover:border-gold/60 transition-all cursor-pointer">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-rose-500/15 border border-rose-400/40 flex items-center justify-center text-rose-300 shrink-0">
+                                            <i class="fa-solid fa-palette"></i>
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-rose-500/15 text-rose-300" data-i18n="pole_03_badge">Pôle 03</span>
+                                                <h3 class="font-serif text-xl font-bold text-ivory group-hover:text-rose-300 transition-colors">THE STUDIO</h3>
+                                            </div>
+                                            <p class="text-xs text-parchment/75 mt-1" data-i18n="triad_studio_desc">Arts plastiques & visuels, écriture & poésie, théâtre & slam, musique, calligraphie, podcast & médias.</p>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-xs text-parchment/40 group-hover:text-rose-300 group-hover:translate-x-1 rtl:rotate-180 transition-all mt-2"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Quote Banner -->
+                        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-parchment/70">
+                            <span class="italic font-serif text-sm text-gold-light" data-i18n="triad_quote">« Rhéteurs, Bâtisseurs, Créateurs & Artistes. »</span>
+                            <a href="#quiz" class="font-mono text-[11px] underline hover:text-gold" data-i18n="triad_quiz_link">Trouver mon pôle →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: The Manifesto (Why The Polymath Agora?) -->
+    <section id="manifesto" class="py-20 bg-midnight border-b border-gold/15">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+                <span class="font-mono text-xs uppercase tracking-[0.25em] text-gold" data-i18n="manifesto_eyebrow">01 • Le Manifeste Fondateur</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-ivory" data-i18n="manifesto_title">
+                    Pourquoi devenir Polymathe au XXIe siècle ?
+                </h2>
+                <p class="text-parchment/75 text-base sm:text-lg leading-relaxed" data-i18n="manifesto_subtitle">
+                    À l'École Normale Supérieure, nous formons les esprits qui éduqueront, inspireront et guideront la société de demain. Mais l'excellence académique et artistique ne peut plus survivre en vase clos.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Pillar 1 -->
+                <div class="bg-slateCard/70 border border-white/10 rounded-2xl p-7 hover:border-gold/40 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-xl mb-5">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-ivory mb-3" data-i18n="pillar1_title">Décloisonner les Savoirs & les Arts</h3>
+                    <p class="text-sm text-parchment/75 leading-relaxed" data-i18n="pillar1_desc">
+                        L'étudiant(e) en lettres, arts ou langues qui maîtrise les outils d'intelligence artificielle et la sécurité numérique possède une longueur d'avance décisive. Le scientifique qui maîtrise la rhétorique, la plume et l'esthétique devient un leader complet.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="bg-slateCard/70 border border-gold/35 rounded-2xl p-7 relative shadow-xl">
+                    <span class="absolute -top-3 right-6 rtl:right-auto rtl:left-6 px-3 py-0.5 rounded-full bg-gold text-obsidian font-mono text-[10px] font-bold uppercase" data-i18n="pillar2_badge">ADN de l'Agora</span>
+                    <div class="w-12 h-12 rounded-xl bg-gold/15 border border-gold/40 flex items-center justify-center text-gold text-xl mb-5">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-ivory mb-3" data-i18n="pillar2_title">Confiance, Scène & Création</h3>
+                    <p class="text-sm text-parchment/75 leading-relaxed" data-i18n="pillar2_desc">
+                        Beaucoup d'étudiants brillants et d'artistes talentueux gardent le silence par timidité. L'Agora est un espace bienveillant et prestigieux où chacun apprend à prendre la parole devant un amphithéâtre, exposer ses œuvres et monter sur scène.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="bg-slateCard/70 border border-white/10 rounded-2xl p-7 hover:border-gold/40 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-xl mb-5">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-ivory mb-3" data-i18n="pillar3_title">Souveraineté Numérique</h3>
+                    <p class="text-sm text-parchment/75 leading-relaxed" data-i18n="pillar3_desc">
+                        À l'ère de la désinformation et des cybermenaces, protéger sa vie privée numérique, comprendre l'architecture des systèmes et utiliser l'IA avec méthode est une compétence citoyenne vitale pour chaque étudiant(e).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Interactive 3 Wings Deep-Dive -->
+    <section id="wings" class="py-20 bg-obsidian border-b border-gold/15">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-[0.25em] text-gold" data-i18n="wings_eyebrow">02 • Départements Opérationnels</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-ivory mt-2" data-i18n="wings_title">
+                        Trois Pôles. Une Seule Ambition.
+                    </h2>
+                </div>
+                <p class="text-sm text-parchment/70 max-w-md" data-i18n="wings_helper">
+                    Chaque membre choisit un <strong class="text-ivory">Pôle Principal</strong> pour développer son talent et peut participer librement aux ateliers, expositions et conférences des autres pôles.
+                </p>
+            </div>
+
+            <!-- Interactive Wing Selector Tabs -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                <button id="tab-forum" onclick="switchWingTab('forum')" class="wing-tab-active p-5 rounded-xl border border-white/15 bg-slateCard/60 text-left rtl:text-right transition-all flex items-center justify-between">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-lg bg-amber-500/20 flex items-center justify-center text-gold text-lg shrink-0">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-gold block" data-i18n="pole_01_badge">Pôle 01</span>
+                            <span class="font-serif text-xl font-bold">THE FORUM</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono px-2.5 py-1 rounded bg-white/5" data-i18n="wing_tag_forum">Éloquence</span>
+                </button>
+
+                <button id="tab-lab" onclick="switchWingTab('lab')" class="p-5 rounded-xl border border-white/15 bg-slateCard/60 text-left rtl:text-right transition-all flex items-center justify-between hover:border-gold/40">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-300 text-lg shrink-0">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-cyan-300 block" data-i18n="pole_02_badge">Pôle 02</span>
+                            <span class="font-serif text-xl font-bold">THE LAB</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono px-2.5 py-1 rounded bg-white/5" data-i18n="wing_tag_lab">Tech & IA</span>
+                </button>
+
+                <button id="tab-studio" onclick="switchWingTab('studio')" class="p-5 rounded-xl border border-white/15 bg-slateCard/60 text-left rtl:text-right transition-all flex items-center justify-between hover:border-gold/40">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-lg bg-rose-500/20 flex items-center justify-center text-rose-300 text-lg shrink-0">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-rose-300 block" data-i18n="pole_03_badge">Pôle 03</span>
+                            <span class="font-serif text-xl font-bold">THE STUDIO</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono px-2.5 py-1 rounded bg-white/5" data-i18n="wing_tag_studio">Arts, Lettres & Médias</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Wing Content Container -->
+            <div id="wingContentPanel" class="bg-slateCard/90 gold-border-glow rounded-2xl p-6 sm:p-10 transition-all">
+                <!-- Populated dynamically via JS based on active wing and language (FR / EN / AR) -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Interactive Diagnostic Quiz ("Find Your Wing") -->
+    <section id="quiz" class="py-20 bg-midnight border-b border-gold/15">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-b from-slateCard to-obsidian gold-border-glow rounded-2xl p-6 sm:p-10">
+                <div class="text-center max-w-2xl mx-auto mb-8">
+                    <span class="px-3 py-1 rounded-full bg-gold/15 border border-gold/30 text-gold font-mono text-xs uppercase tracking-widest" data-i18n="quiz_badge">
+                        Diagnostic Interactif • 30 Secondes
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ivory mt-3" data-i18n="quiz_title">
+                        Quel Pôle de l'Agora est fait pour vous ?
+                    </h2>
+                    <p class="text-sm text-parchment/75 mt-2" data-i18n="quiz_subtitle">
+                        Répondez à ces 3 questions rapides pour découvrir votre profil au sein de L'Agora des Polymathes et pré-remplir votre candidature.
+                    </p>
+                </div>
+
+                <!-- Quiz Container -->
+                <div id="quizContainer" class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="p-5 rounded-xl bg-midnight/90 border border-white/10">
+                        <p class="font-serif text-lg font-semibold text-ivory mb-3" data-i18n="q1_title">
+                            1. Quelle compétence ou passion souhaitez-vous développer en priorité cette année ?
+                        </p>
+                        <div class="grid sm:grid-cols-3 gap-3">
+                            <button type="button" onclick="selectQuizAnswer(1, 'forum', this)" class="quiz-opt-1 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <i class="fa-solid fa-comments text-gold mr-1.5 rtl:mr-0 rtl:ml-1.5"></i>
+                                <span data-i18n="q1_a1">Captiver un public, débattre avec éloquence et vaincre le trac sur scène.</span>
+                            </button>
+                            <button type="button" onclick="selectQuizAnswer(1, 'lab', this)" class="quiz-opt-1 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <i class="fa-solid fa-terminal text-cyan-300 mr-1.5 rtl:mr-0 rtl:ml-1.5"></i>
+                                <span data-i18n="q1_a2">Maîtriser l'IA pour mes études, sécuriser mes données et explorer Linux.</span>
+                            </button>
+                            <button type="button" onclick="selectQuizAnswer(1, 'studio', this)" class="quiz-opt-1 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <i class="fa-solid fa-palette text-rose-300 mr-1.5 rtl:mr-0 rtl:ml-1.5"></i>
+                                <span data-i18n="q1_a3">Écrire, peindre/dessiner, faire du théâtre/musique, photographier ou lancer un podcast.</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="p-5 rounded-xl bg-midnight/90 border border-white/10">
+                        <p class="font-serif text-lg font-semibold text-ivory mb-3" data-i18n="q2_title">
+                            2. Lors d'un grand événement culturel et scientifique à l'ENS, quel rôle vous attire le plus ?
+                        </p>
+                        <div class="grid sm:grid-cols-3 gap-3">
+                            <button type="button" onclick="selectQuizAnswer(2, 'forum', this)" class="quiz-opt-2 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <i class="fa-solid fa-gavel text-gold mr-1.5 rtl:mr-0 rtl:ml-1.5"></i>
+                                <span data-i18n="q2_a1">Prendre le micro en amphithéâtre, modérer le panel ou argumenter.</span>
+                            </button>
+                            <button type="button" onclick="selectQuizAnswer(2, 'lab', this)" class="quiz-opt-2 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <i class="fa-solid fa-microchip text-cyan-300 mr-1.5 rtl:mr-0 rtl:ml-1.5"></i>
+                                <span data-i18n="q2_a2">Animer une démonstration interactive sur l'IA ou la cybersécurité.</span>
+                            </button>
+                            <button type="button" onclick="selectQuizAnswer(2, 'studio', this)" class="quiz-opt-2 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <i class="fa-solid fa-masks-theater text-rose-300 mr-1.5 rtl:mr-0 rtl:ml-1.5"></i>
+                                <span data-i18n="q2_a3">Exposer mes œuvres, jouer une pièce/slam, diriger la revue ou réaliser les médias.</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="p-5 rounded-xl bg-midnight/90 border border-white/10">
+                        <p class="font-serif text-lg font-semibold text-ivory mb-3" data-i18n="q3_title">
+                            3. Quelle citation résonne le plus avec votre vision personnelle ?
+                        </p>
+                        <div class="grid sm:grid-cols-3 gap-3">
+                            <button type="button" onclick="selectQuizAnswer(3, 'forum', this)" class="quiz-opt-3 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <span class="italic font-serif text-base text-gold block mb-1" data-i18n="q3_a1">« La parole est l'arme des esprits libres. »</span>
+                            </button>
+                            <button type="button" onclick="selectQuizAnswer(3, 'lab', this)" class="quiz-opt-3 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <span class="italic font-serif text-base text-cyan-300 block mb-1" data-i18n="q3_a2">« Comprendre le système, c'est en détenir la clé. »</span>
+                            </button>
+                            <button type="button" onclick="selectQuizAnswer(3, 'studio', this)" class="quiz-opt-3 text-left rtl:text-right p-3.5 rounded-lg border border-white/10 bg-slateCard/60 hover:border-gold/50 text-xs sm:text-sm text-parchment transition-all">
+                                <span class="italic font-serif text-base text-rose-300 block mb-1" data-i18n="q3_a3">« L'art et les lettres gravent l'âme d'une époque. »</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Result Box (Hidden until all 3 answered) -->
+                <div id="quizResultBox" class="hidden mt-8 p-6 rounded-xl bg-gradient-to-r from-gold/20 via-slateCard to-slateCard border border-gold">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <span class="font-mono text-xs uppercase tracking-widest text-gold block" data-i18n="quiz_res_label">Résultat de votre profil Polymathe</span>
+                            <h3 id="quizResultTitle" class="font-serif text-2xl sm:text-3xl font-bold text-ivory mt-1">THE FORUM</h3>
+                            <p id="quizResultDesc" class="text-sm text-parchment/85 mt-1 max-w-xl"></p>
+                        </div>
+                        <button onclick="applyQuizRecommendation()" class="px-5 py-3 rounded-xl bg-gold text-obsidian font-bold text-xs sm:text-sm shrink-0 hover:brightness-110 transition-all">
+                            <span data-i18n="quiz_res_btn">Choisir ce Pôle & Postuler →</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Inaugural Semester Roadmap & Events -->
+    <section id="roadmap" class="py-20 bg-obsidian border-b border-gold/15">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="font-mono text-xs uppercase tracking-[0.25em] text-gold" data-i18n="roadmap_eyebrow">03 • Calendrier Officiel d'Activités</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-ivory mt-2" data-i18n="roadmap_title">
+                    Programme Inaugural de l'Agora
+                </h2>
+                <p class="text-parchment/75 text-sm sm:text-base mt-2" data-i18n="roadmap_subtitle">
+                    Des conférences majeures en amphithéâtre aux ateliers artistiques, littéraires et technologiques : voici les temps forts qui rythmeront l'ENS Tizi Ouzou.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Event 1 -->
+                <div class="bg-slateCard/80 border border-gold/30 rounded-2xl p-6 flex flex-col justify-between hover:border-gold transition-all">
+                    <div>
+                        <div class="flex items-center justify-between text-xs font-mono mb-4">
+                            <span class="px-2.5 py-1 rounded bg-gold/20 text-gold font-semibold" data-i18n="ev1_tag">Événement Phare #1</span>
+                            <span class="text-parchment/60" data-i18n="ev1_loc">Amphithéâtre Central</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-ivory mb-2" data-i18n="ev1_title">
+                            Le Grand Procès de l'Intelligence Artificielle
+                        </h3>
+                        <p class="text-xs text-parchment/75 leading-relaxed mb-4" data-i18n="ev1_desc">
+                            Joute oratoire théâtralisée et conférence inaugurale : « L'IA est-elle la fin de la création littéraire, artistique et pédagogique ou sa renaissance ? » Suivi d'une démonstration en direct.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-[11px] font-mono text-gold">Forum × Lab × Studio</span>
+                        <button onclick="preselectEventInForm('Grand Procès de l\'IA')" class="text-xs font-semibold text-ivory hover:text-gold flex items-center gap-1">
+                            <span data-i18n="ev_rsvp">Réserver ma place</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="bg-slateCard/80 border border-white/10 rounded-2xl p-6 flex flex-col justify-between hover:border-gold/50 transition-all">
+                    <div>
+                        <div class="flex items-center justify-between text-xs font-mono mb-4">
+                            <span class="px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 font-semibold">The Lab • Masterclass</span>
+                            <span class="text-parchment/60" data-i18n="ev2_loc">Atelier Pratique</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-ivory mb-2" data-i18n="ev2_title">
+                            « The Architect's Key » : Cybersécurité & Vie Privée
+                        </h3>
+                        <p class="text-xs text-parchment/75 leading-relaxed mb-4" data-i18n="ev2_desc">
+                            Séminaire pratique d'autodéfense numérique : protéger ses comptes, déjouer l'ingénierie sociale, chiffrer ses documents académiques et maîtriser les outils IA de recherche.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-[11px] font-mono text-cyan-300">Pôle 02 : The Lab</span>
+                        <button onclick="preselectEventInForm('Masterclass Architect\'s Key')" class="text-xs font-semibold text-ivory hover:text-gold flex items-center gap-1">
+                            <span data-i18n="ev_rsvp">Réserver ma place</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="bg-slateCard/80 border border-white/10 rounded-2xl p-6 flex flex-col justify-between hover:border-gold/50 transition-all">
+                    <div>
+                        <div class="flex items-center justify-between text-xs font-mono mb-4">
+                            <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 font-semibold">The Forum • Tribune</span>
+                            <span class="text-parchment/60">FR / EN / AR</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-ivory mb-2" data-i18n="ev3_title">
+                            Les Olympiades de l'Éloquence de l'ENS
+                        </h3>
+                        <p class="text-xs text-parchment/75 leading-relaxed mb-4" data-i18n="ev3_desc">
+                            Cycle d'entraînement à la prise de parole en public, gestion du langage corporel, rhétorique classique et tournoi inter-départements de débat parlementaire.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-[11px] font-mono text-amber-300">Pôle 01 : The Forum</span>
+                        <button onclick="preselectEventInForm('Olympiades de l\'Éloquence')" class="text-xs font-semibold text-ivory hover:text-gold flex items-center gap-1">
+                            <span data-i18n="ev_rsvp">Réserver ma place</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event 4 (Expanded Arts, Literature, Theater & Media) -->
+                <div class="bg-slateCard/80 border border-white/10 rounded-2xl p-6 flex flex-col justify-between hover:border-gold/50 transition-all">
+                    <div>
+                        <div class="flex items-center justify-between text-xs font-mono mb-4">
+                            <span class="px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 font-semibold">The Studio • Arts & Édition</span>
+                            <span class="text-parchment/60" data-i18n="ev4_loc">Salon & Scène</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-ivory mb-2" data-i18n="ev4_title">
+                            Salon des Arts, Revue « Les Cahiers » & Scène Ouverte
+                        </h3>
+                        <p class="text-xs text-parchment/75 leading-relaxed mb-4" data-i18n="ev4_desc">
+                            Exposition d'arts plastiques, photographie et calligraphie, lancement de la revue littéraire, scène ouverte (théâtre, slam, musique) et enregistrement du podcast.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-[11px] font-mono text-rose-300">Pôle 03 : The Studio</span>
+                        <button onclick="preselectEventInForm('Salon des Arts & Revue Les Cahiers')" class="text-xs font-semibold text-ivory hover:text-gold flex items-center gap-1">
+                            <span data-i18n="ev_rsvp">Réserver ma place</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Governance, Executive Structure & Official Charter -->
+    <section id="governance" class="py-20 bg-midnight border-b border-gold/15">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                <!-- Left Column: Executive Architecture -->
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="font-mono text-xs uppercase tracking-[0.25em] text-gold" data-i18n="gov_eyebrow">04 • Architecture Institutionnelle</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-ivory" data-i18n="gov_title">
+                        Gouvernance & Bureau Exécutif
+                    </h2>
+                    <p class="text-sm sm:text-base text-parchment/75 leading-relaxed" data-i18n="gov_desc">
+                        Structurée selon les normes académiques du Ministère de l'Enseignement Supérieur et de la Recherche Scientifique (MESRS), L'Agora des Polymathes allie rigueur administrative et ouverture aux talents littéraires, scientifiques et artistiques de toutes les promotions.
+                    </p>
+
+                    <!-- Organizational Hierarchy Cards -->
+                    <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 rounded-xl bg-slateCard/90 border border-gold/30">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-mono text-[11px] text-gold uppercase" data-i18n="role_pres_tag">Direction Stratégique</span>
+                                <i class="fa-solid fa-chess-king text-gold text-sm"></i>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-ivory" data-i18n="role_pres">Présidence & Vice-Présidence</h4>
+                            <p class="text-xs text-parchment/70 mt-1" data-i18n="role_pres_desc">Représentation officielle auprès de la Direction de l'ENS, orientation intellectuelle et supervision inter-pôles.</p>
+                            <div class="mt-3 pt-2.5 border-t border-white/10 flex flex-wrap items-center gap-3 text-[11px] font-mono">
+                                <a href="https://www.instagram.com/anomiac.exe?cplk=eXdjMmp4bGZtMHB3" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline flex items-center gap-1">
+                                    <i class="fa-brands fa-instagram"></i> <span>Président : @anomiac.exe</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slateCard/90 border border-white/10">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-mono text-[11px] text-parchment/60 uppercase" data-i18n="role_sec_tag">Administration & Actes</span>
+                                <i class="fa-solid fa-file-signature text-gold text-sm"></i>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-ivory" data-i18n="role_sec">Secrétariat Général & Trésorerie</h4>
+                            <p class="text-xs text-parchment/70 mt-1" data-i18n="role_sec_desc">Tenue des registres, procès-verbaux, gestion des adhésions, logistique des salles et relations administratives.</p>
+                            <div class="mt-3 pt-2.5 border-t border-white/10 flex flex-wrap items-center gap-3 text-[11px] font-mono">
+                                <a href="https://www.instagram.com/polymath.agora?mdxt=MTZnM2kxaGMyeGczaA==" target="_blank" rel="noopener noreferrer" class="text-parchment/80 hover:text-gold flex items-center gap-1">
+                                    <i class="fa-brands fa-instagram text-gold"></i> <span>Officiel : @polymath.agora</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slateCard/90 border border-white/10 sm:col-span-2">
+                            <div class="flex items-center justify-between mb-1 flex-wrap gap-2">
+                                <span class="font-mono text-[11px] text-gold uppercase" data-i18n="role_leads_badge">Opportunité de Leadership Étudiant</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px]" data-i18n="role_open">Candidatures aux Postes de Responsabilité Ouvertes</span>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-ivory" data-i18n="role_leads">Directeurs & Coordinateurs de Pôles (Forum, Lab, Studio)</h4>
+                            <p class="text-xs text-parchment/70 mt-1" data-i18n="role_leads_desc">
+                                Tout nouveau membre rejoint d'abord l'Agora en tant que Membre Actif. Les étudiant(e)s motivé(e)s souhaitant intégrer le Bureau, diriger un atelier artistique/scientifique ou coordonner une cellule peuvent cocher l'option « Postuler à un poste à responsabilité » dans le formulaire d'adhésion.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Official Charter Document Preview Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-slateCard gold-border-glow rounded-2xl p-6 sm:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-gold/20 border border-gold/40 flex items-center justify-center text-gold shrink-0">
+                                <i class="fa-solid fa-scroll"></i>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[10px] uppercase tracking-widest text-gold block" data-i18n="charter_eyebrow">Dossier Réglementaire</span>
+                                <h3 class="font-serif text-2xl font-bold text-ivory" data-i18n="charter_card_title">Statut & Règlement Intérieur</h3>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-parchment/75 leading-relaxed mb-5" data-i18n="charter_card_desc">
+                            Consultez ou téléchargez en PDF la charte constitutive officielle de <strong class="text-ivory">L'Agora des Polymathes</strong> déposée auprès de l'administration de l'ENS de Tizi Ouzou (12 Articles).
+                        </p>
+
+                        <!-- Mini Preview Box -->
+                        <div class="p-4 rounded-xl bg-obsidian/90 border border-white/10 font-mono text-[11px] text-parchment/70 space-y-2 mb-6 max-h-48 overflow-y-auto">
+                            <div class="text-gold font-semibold" data-i18n="charter_prev_t1">TITRE I : DISPOSITIONS GÉNÉRALES</div>
+                            <p data-i18n="charter_prev_a1"><strong>Art. 1 :</strong> Il est fondé au sein de l'ENS de Tizi Ouzou une organisation estudiantine scientifique, culturelle, littéraire, artistique et technologique dénommée « L'Agora des Polymathes » (The Polymath Agora).</p>
+                            <p data-i18n="charter_prev_a3"><strong>Art. 3 :</strong> Organisation académique apolitique à but non lucratif promouvant l'excellence, le débat rigoureux, l'épanouissement artistique et l'émancipation numérique.</p>
+                            <div class="text-gold font-semibold pt-1" data-i18n="charter_prev_t2">TITRE II : LES TROIS PÔLES</div>
+                            <p data-i18n="charter_prev_a5"><strong>Art. 5 :</strong> Structuration permanente autour de The Forum (Éloquence), The Lab (Systèmes & IA) et The Studio (Arts Plastiques, Lettres, Scène & Médias)...</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button onclick="openCharterModal()" class="py-3 px-4 rounded-xl bg-gold text-obsidian font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-book-open"></i>
+                                <span data-i18n="btn_read_charter">Lire le Statut</span>
+                            </button>
+                            <button onclick="downloadCharterPDF()" class="py-3 px-4 rounded-xl bg-midnight border border-gold/40 hover:border-gold text-gold font-mono text-xs transition-all flex items-center justify-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-file-pdf"></i>
+                                <span data-i18n="btn_pdf_charter">Télécharger PDF</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Membership Application & Instant Digital Pass Generator -->
+    <section id="join" class="py-20 bg-obsidian relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="font-mono text-xs uppercase tracking-[0.25em] text-gold" data-i18n="join_eyebrow">05 • Portail d'Adhésion Officiel</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-ivory mt-2" data-i18n="join_title">
+                    Rejoindre L'Agora des Polymathes
+                </h2>
+                <p class="text-parchment/75 text-sm sm:text-base mt-2" data-i18n="join_subtitle">
+                    L'inscription est gratuite et ouverte à tou(te)s les étudiant(e)s de l'ENS Tizi Ouzou. Remplissez votre fiche ci-dessous pour enregistrer votre adhésion et télécharger votre <strong class="text-gold">Carte de Membre Officielle (PDF)</strong>.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-10 items-start">
+                <!-- Application Form -->
+                <div class="lg:col-span-7 bg-slateCard/90 gold-border-glow rounded-2xl p-6 sm:p-9">
+                    <form id="membershipForm" onsubmit="handleMembershipSubmit(event)" class="space-y-5">
+                        <!-- Full Name -->
+                        <div>
+                            <label class="block text-xs font-mono uppercase tracking-wider text-gold mb-2" data-i18n="form_name">Nom & Prénom Complet *</label>
+                            <input type="text" id="memberName" required placeholder="Ex: Yasmine Mansouri" oninput="updateLivePassPreview()"
+                                class="w-full px-4 py-3 rounded-xl bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-sm text-ivory placeholder-parchment/30">
+                        </div>
+
+                        <!-- Multi-Channel Contact System (Require at least 1 of the 3) -->
+                        <div class="p-4 rounded-xl bg-midnight/80 border border-gold/25 space-y-3">
+                            <div class="flex items-center justify-between flex-wrap gap-1">
+                                <span class="text-xs font-mono uppercase tracking-wider text-gold font-semibold" data-i18n="form_contact_header">
+                                    Coordonnées de Contact (Remplissez au moins 1 canal) *
+                                </span>
+                                <span class="text-[11px] font-mono text-parchment/60" data-i18n="form_contact_hint">1 seul suffit • Email, Telegram ou Instagram</span>
+                            </div>
+
+                            <div class="grid sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="block text-[11px] font-mono text-parchment/80 mb-1">
+                                        <i class="fa-solid fa-envelope text-gold mr-1"></i> <span data-i18n="form_email_lbl">Email</span>
+                                    </label>
+                                    <input type="email" id="memberEmail" placeholder="etudiant@ens.dz" oninput="updateLivePassPreview(); clearContactError();"
+                                        class="w-full px-3 py-2.5 rounded-lg bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-xs text-ivory placeholder-parchment/30">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-mono text-parchment/80 mb-1">
+                                        <i class="fa-brands fa-telegram text-cyan-400 mr-1"></i> <span data-i18n="form_tg_lbl">Telegram / Tél</span>
+                                    </label>
+                                    <input type="text" id="memberTelegram" placeholder="@pseudo ou 0550..." oninput="updateLivePassPreview(); clearContactError();"
+                                        class="w-full px-3 py-2.5 rounded-lg bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-xs text-ivory placeholder-parchment/30">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-mono text-parchment/80 mb-1">
+                                        <i class="fa-brands fa-instagram text-rose-400 mr-1"></i> <span data-i18n="form_ig_lbl">Instagram</span>
+                                    </label>
+                                    <input type="text" id="memberInstagram" placeholder="@votre_insta" oninput="updateLivePassPreview(); clearContactError();"
+                                        class="w-full px-3 py-2.5 rounded-lg bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-xs text-ivory placeholder-parchment/30">
+                                </div>
+                            </div>
+                            <p id="contactValidationError" class="hidden text-xs text-rose-400 font-mono pt-1" data-i18n="form_contact_err">
+                                ⚠ Veuillez renseigner au moins un moyen de contact (Email, Telegram ou Instagram).
+                            </p>
+                        </div>
+
+                        <!-- Department & Study Year -->
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-mono uppercase tracking-wider text-gold mb-2" data-i18n="form_dept">Département / Filière (ENS) *</label>
+                                <select id="memberDept" onchange="updateLivePassPreview()" class="w-full px-4 py-3 rounded-xl bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-sm text-ivory">
+                                    <option value="Langue & Littérature Françaises">Langue & Littérature Françaises</option>
+                                    <option value="Langue & Littérature Anglaises">Langue & Littérature Anglaises</option>
+                                    <option value="Langue & Littérature Arabes">Langue & Littérature Arabes</option>
+                                    <option value="Langue & Culture Amazighes">Langue & Culture Amazighes</option>
+                                    <option value="Histoire, Géographie & Sciences Humaines">Histoire, Géographie & Sciences Humaines</option>
+                                    <option value="Sciences Exactes (Maths / Physique / Info)">Sciences Exactes (Maths / Physique / Info)</option>
+                                    <option value="Sciences Naturelles & Chimie">Sciences Naturelles & Chimie</option>
+                                    <option value="Autre Filière ENS">Autre Filière ENS</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono uppercase tracking-wider text-gold mb-2" data-i18n="form_year">Année d'Études *</label>
+                                <select id="memberYear" onchange="updateLivePassPreview()" class="w-full px-4 py-3 rounded-xl bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-sm text-ivory">
+                                    <option value="1ère Année">1ère Année (S1/S2)</option>
+                                    <option value="2ème Année" selected>2ème Année</option>
+                                    <option value="3ème Année">3ème Année</option>
+                                    <option value="4ème / 5ème Année (PES/PEM)">4ème / 5ème Année (PES/PEM)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Primary Wing & Locked Regular Member Badge -->
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-mono uppercase tracking-wider text-gold mb-2" data-i18n="form_wing">Pôle Principal Souhaité *</label>
+                                <select id="memberWing" onchange="updateLivePassPreview()" class="w-full px-4 py-3 rounded-xl bg-obsidian border border-gold/40 focus:border-gold focus:outline-none text-sm text-ivory font-medium">
+                                    <option value="THE FORUM (Éloquence & Débat)">Pôle 01 — THE FORUM (Éloquence & Débat)</option>
+                                    <option value="THE LAB (Tech, IA & Cybersécurité)">Pôle 02 — THE LAB (Tech, IA & Cybersécurité)</option>
+                                    <option value="THE STUDIO (Arts, Lettres, Scène & Médias)">Pôle 03 — THE STUDIO (Arts, Lettres, Scène & Médias)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono uppercase tracking-wider text-gold mb-2" data-i18n="form_role">Statut d'Adhésion Initial</label>
+                                <!-- Locked Regular Member Badge -->
+                                <div class="w-full px-4 py-3 rounded-xl bg-obsidian/90 border border-emerald-500/35 flex items-center justify-between text-sm text-ivory">
+                                    <span class="flex items-center gap-2 font-medium">
+                                        <i class="fa-solid fa-lock text-gold text-xs"></i>
+                                        <span data-i18n="locked_role_label">Membre Actif (Regular Member)</span>
+                                    </span>
+                                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px]" data-i18n="locked_role_tag">Officiel</span>
+                                </div>
+                                <input type="hidden" id="memberRole" value="Membre Actif">
+                            </div>
+                        </div>
+
+                        <!-- Executive / Higher Ranking Role Application Toggle & Sub-Panel -->
+                        <div class="p-4 rounded-xl bg-midnight/90 border border-gold/30 space-y-3">
+                            <label class="flex items-start gap-3 cursor-pointer select-none">
+                                <input type="checkbox" id="wantsHigherRank" onchange="toggleLeadershipPanel()" class="mt-1 w-4 h-4 accent-[#C9A24D] rounded cursor-pointer">
+                                <span class="text-xs sm:text-sm font-medium text-ivory leading-snug" data-i18n="form_higher_rank_toggle">
+                                    Souhaitez-vous postuler pour un poste à responsabilité (Coordinateur de Pôle, Cellule Organisation, Arts/Média ou Bureau Exécutif) ?
+                                </span>
+                            </label>
+
+                            <!-- Hidden Sub-Panel Revealed When Checked -->
+                            <div id="leadershipSubPanel" class="hidden pt-3 border-t border-white/10 space-y-4">
+                                <div class="p-3.5 rounded-lg bg-slateCard/90 border border-gold/25 text-xs text-parchment/85 space-y-2">
+                                    <p class="font-semibold text-gold" data-i18n="lead_panel_intro">
+                                        <i class="fa-solid fa-crown mr-1"></i> Procédure de Sélection du Bureau & des Responsables :
+                                    </p>
+                                    <p data-i18n="lead_panel_instructions">
+                                        Les postes de coordination et du Bureau Exécutif sont attribués après étude de votre profil par la Présidence. Rédigez votre message ci-dessous ou contactez directement le Président :
+                                    </p>
+                                    <div class="flex flex-wrap items-center gap-2.5 pt-1">
+                                        <a href="https://www.instagram.com/anomiac.exe?cplk=eXdjMmp4bGZtMHB3" target="_blank" rel="noopener noreferrer"
+                                            class="px-3 py-1.5 rounded-lg bg-gold/20 border border-gold/50 text-gold hover:bg-gold hover:text-obsidian font-mono text-[11px] font-semibold transition-all inline-flex items-center gap-1.5">
+                                            <i class="fa-brands fa-instagram"></i>
+                                            <span>Président : @anomiac.exe</span>
+                                        </a>
+                                        <a href="https://www.instagram.com/polymath.agora?mdxt=MTZnM2kxaGMyeGczaA==" target="_blank" rel="noopener noreferrer"
+                                            class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/15 text-ivory hover:border-gold font-mono text-[11px] transition-all inline-flex items-center gap-1.5">
+                                            <i class="fa-brands fa-instagram text-rose-400"></i>
+                                            <span>Club : @polymath.agora</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-mono uppercase tracking-wider text-gold mb-1.5" data-i18n="lead_pitch_label">
+                                        Lettre de Motivation / Message au Président & Vice-Président
+                                    </label>
+                                    <textarea id="leadershipPitch" rows="3" placeholder="Précisez le poste souhaité (ex: Coordinateur Studio Arts, Responsable Débat, Design/Média, Organisation...) et vos compétences..."
+                                        class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-gold/40 focus:border-gold focus:outline-none text-xs sm:text-sm text-ivory placeholder-parchment/30"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- General Motivation / Artistic or Intellectual Interests -->
+                        <div>
+                            <label class="block text-xs font-mono uppercase tracking-wider text-gold mb-2" data-i18n="form_note">Vos passions, talents artistiques ou sujets d'intérêt (Optionnel)</label>
+                            <textarea id="memberMotivation" rows="2" placeholder="Ex: Débat, dessin, peinture, théâtre, écriture, cybersécurité, IA, photographie, musique..."
+                                class="w-full px-4 py-3 rounded-xl bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-sm text-ivory placeholder-parchment/30"></textarea>
+                        </div>
+
+                        <button type="submit" id="submitMemberBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold via-gold-light to-gold text-obsidian font-bold text-sm sm:text-base uppercase tracking-wider shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-3 cursor-pointer">
+                            <i class="fa-solid fa-stamp"></i>
+                            <span data-i18n="form_submit">Valider mon Adhésion & Générer ma Carte (PDF)</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Live Digital Polymath Pass Card + PDF Export -->
+                <div class="lg:col-span-5 space-y-5">
+                    <!-- Printable Card Wrapper (#passPreviewCard) -->
+                    <div id="passPreviewCard" class="bg-gradient-to-br from-[#172138] via-[#0D131F] to-[#070A0F] gold-border-glow rounded-2xl p-6 sm:p-7 relative overflow-hidden">
+                        <!-- Subtle Watermark Crest -->
+                        <div class="absolute -right-8 -bottom-8 opacity-5 pointer-events-none">
+                            <i class="fa-solid fa-landmark text-[160px] text-gold"></i>
+                        </div>
+
+                        <div class="flex items-center justify-between border-b border-gold/25 pb-4 mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-gold/20 border border-gold/50 flex items-center justify-center text-gold">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+                                <div>
+                                    <span class="font-serif text-lg font-bold text-ivory block leading-none">THE POLYMATH AGORA</span>
+                                    <span class="font-mono text-[10px] text-gold uppercase tracking-widest">ENS Tizi Ouzou • Carte Officielle</span>
+                                </div>
+                            </div>
+                            <span id="passIdBadge" class="font-mono text-xs px-2.5 py-1 rounded bg-gold/15 border border-gold/40 text-gold">
+                                #TPA-2026
+                            </span>
+                        </div>
+
+                        <div class="space-y-4 relative z-10">
+                            <div>
+                                <span class="font-mono text-[10px] uppercase tracking-widest text-parchment/50 block" data-i18n="pass_holder">Titulaire / Member</span>
+                                <div id="passPreviewName" class="font-serif text-2xl sm:text-3xl font-bold text-ivory mt-0.5">
+                                    Futur(e) Polymathe
+                                </div>
+                                <div id="passPreviewContact" class="font-mono text-[11px] text-gold/85 mt-1 truncate">
+                                    @polymath.agora
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 pt-1">
+                                <div class="p-3 rounded-lg bg-obsidian/70 border border-white/10">
+                                    <span class="font-mono text-[10px] uppercase text-parchment/50 block" data-i18n="pass_dept">Filière</span>
+                                    <span id="passPreviewDept" class="text-xs font-medium text-ivory block mt-0.5 truncate">Langue & Littérature Françaises</span>
+                                </div>
+                                <div class="p-3 rounded-lg bg-obsidian/70 border border-white/10">
+                                    <span class="font-mono text-[10px] uppercase text-parchment/50 block" data-i18n="pass_year">Promotion</span>
+                                    <span id="passPreviewYear" class="text-xs font-medium text-ivory block mt-0.5">2ème Année</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-gold/10 border border-gold/30">
+                                <span class="font-mono text-[10px] uppercase tracking-wider text-gold block" data-i18n="pass_wing">Pôle d'Affiliation Principal</span>
+                                <span id="passPreviewWing" class="font-serif text-lg font-bold text-ivory block mt-0.5">THE FORUM (Éloquence & Débat)</span>
+                                <div class="flex items-center justify-between mt-1">
+                                    <span id="passPreviewRole" class="font-mono text-[11px] text-emerald-300">Statut : Membre Actif</span>
+                                    <span id="passCandidateTag" class="hidden font-mono text-[10px] px-2 py-0.5 rounded bg-gold/25 text-gold">Candidat(e) Bureau/Pôle</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-parchment/60">
+                            <span>« MENS MULTIPLEX, VOX LIBERA »</span>
+                            <span id="passStatusIndicator" class="text-amber-300">● Aperçu en direct</span>
+                        </div>
+                    </div>
+
+                    <!-- Direct PDF Download Button for Membership Pass -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button type="button" onclick="downloadMembershipCardPDF()" class="flex-1 py-3.5 px-4 rounded-xl bg-slateCard border border-gold/50 hover:bg-gold hover:text-obsidian text-gold font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md">
+                            <i class="fa-solid fa-file-pdf text-sm"></i>
+                            <span data-i18n="btn_download_pass_pdf">Télécharger ma Carte (PDF)</span>
+                        </button>
+                        <button type="button" onclick="copyMembershipReceipt()" class="py-3.5 px-4 rounded-xl bg-midnight border border-white/15 hover:border-gold text-parchment font-mono text-xs transition-all flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-regular fa-copy"></i>
+                            <span id="copyReceiptBtnText" data-i18n="pass_btn_copy">Copier Reçu</span>
+                        </button>
+                    </div>
+
+                    <!-- Confirmation Action Box (Shown after submission) -->
+                    <div id="passSuccessActions" class="hidden p-5 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 space-y-3">
+                        <div class="flex items-center gap-2.5 text-emerald-300 font-semibold text-sm">
+                            <i class="fa-solid fa-circle-check text-lg"></i>
+                            <span data-i18n="pass_confirmed_title">Adhésion enregistrée & Carte générée avec succès !</span>
+                        </div>
+                        <p id="passDatabaseStatusMsg" class="text-xs text-parchment/80 leading-relaxed" data-i18n="pass_confirmed_desc">
+                            Votre inscription est enregistrée dans le registre officiel de L'Agora des Polymathes. Cliquez sur « Télécharger ma Carte (PDF) » pour conserver votre carte officielle.
+                        </p>
+                        <div class="pt-1 flex flex-wrap items-center gap-3 text-xs font-mono">
+                            <a href="https://www.instagram.com/polymath.agora?mdxt=MTZnM2kxaGMyeGczaA==" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 hover:bg-emerald-500 hover:text-obsidian transition-all inline-flex items-center gap-1.5">
+                                <i class="fa-brands fa-instagram"></i>
+                                <span>Rejoindre @polymath.agora</span>
+                            </a>
+                            <a href="https://www.instagram.com/anomiac.exe?cplk=eXdjMmp4bGZtMHB3" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-gold/20 border border-gold/40 text-gold hover:bg-gold hover:text-obsidian transition-all inline-flex items-center gap-1.5">
+                                <i class="fa-brands fa-instagram"></i>
+                                <span>Président @anomiac.exe</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-midnight border-t border-gold/20 py-12 text-xs text-parchment/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-gold/15 border border-gold/40 flex items-center justify-center text-gold font-serif font-bold text-base">
+                    A
+                </div>
+                <div>
+                    <span class="font-serif text-base font-bold text-ivory block">L'Agora des Polymathes • The Polymath Agora • أغورا الموسوعيين</span>
+                    <span class="font-mono text-[11px] text-parchment/50">École Normale Supérieure (ENS) de Tizi Ouzou, Algérie</span>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-5 font-mono text-[11px]">
+                <a href="https://www.instagram.com/polymath.agora?mdxt=MTZnM2kxaGMyeGczaA==" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline flex items-center gap-1.5">
+                    <i class="fa-brands fa-instagram text-sm"></i>
+                    <span>@polymath.agora</span>
+                </a>
+                <a href="https://www.instagram.com/anomiac.exe?cplk=eXdjMmp4bGZtMHB3" target="_blank" rel="noopener noreferrer" class="hover:text-gold transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-crown text-gold text-[10px]"></i>
+                    <span>Présidence : @anomiac.exe</span>
+                </a>
+                <button onclick="openCharterModal()" class="hover:text-gold transition-colors cursor-pointer" data-i18n="topbar_charter">Statut & Règlement</button>
+                <button onclick="openAdminModal()" class="hover:text-gold transition-colors cursor-pointer" data-i18n="topbar_admin">Accès Bureau</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal 1: Full Official Charter (Statut Constitutif & Règlement Intérieur - 12 Complete Articles + PDF Export) -->
+    <div id="charterModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-midnight border border-gold/50 rounded-2xl max-w-4xl w-full max-h-[88vh] flex flex-col shadow-2xl">
+            <div class="p-5 sm:p-6 border-b border-white/10 flex items-center justify-between gap-4">
+                <div>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-gold block" data-i18n="modal_charter_eyebrow">Document Officiel d'Accréditation • ENS Tizi Ouzou</span>
+                    <h3 class="font-serif text-2xl font-bold text-ivory" data-i18n="modal_charter_title">Statut Constitutif & Règlement Intérieur (12 Articles)</h3>
+                </div>
+                <button onclick="closeCharterModal()" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 text-parchment flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Printable Charter Area -->
+            <div id="fullCharterContent" class="p-6 sm:p-8 overflow-y-auto space-y-4 text-xs sm:text-sm text-parchment/90 leading-relaxed font-sans bg-midnight">
+                <!-- Populated dynamically in FR, EN, or AR via renderCharterContent() -->
+            </div>
+
+            <div class="p-4 border-t border-white/10 flex flex-wrap justify-end gap-3 bg-obsidian/80 rounded-b-2xl">
+                <button onclick="downloadCharterPDF()" class="px-4 py-2.5 rounded-lg bg-gold text-obsidian font-bold text-xs flex items-center gap-2 hover:brightness-110 transition-all cursor-pointer">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span data-i18n="btn_pdf_charter_full">Télécharger le Statut & Règlement (PDF)</span>
+                </button>
+                <button onclick="copyCharterText()" class="px-4 py-2.5 rounded-lg bg-slateCard border border-gold/30 text-gold font-mono text-xs flex items-center gap-2 hover:border-gold cursor-pointer">
+                    <i class="fa-regular fa-copy"></i>
+                    <span id="copyCharterBtnLabel" data-i18n="btn_copy_charter">Copier le texte</span>
+                </button>
+                <button onclick="closeCharterModal()" class="px-4 py-2.5 rounded-lg border border-white/20 text-xs text-parchment hover:bg-white/5 cursor-pointer" data-i18n="btn_close">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Executive Bureau Portal (Supabase Auth Login + Full Admin Member Database & Promotions) -->
+    <div id="adminModal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-midnight border border-gold/50 rounded-2xl max-w-6xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-6 border-b border-white/10 flex items-center justify-between bg-obsidian/60">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-gold block">THE POLYMATH AGORA • ENS TIZI OUZOU</span>
+                        <h3 class="font-serif text-xl sm:text-2xl font-bold text-ivory" data-i18n="admin_modal_title">Portail du Bureau Exécutif & Gestion des Membres</h3>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="adminLogoutBtn" onclick="handleAdminLogout()" class="hidden px-3 py-1.5 rounded-lg border border-rose-500/40 text-rose-300 hover:bg-rose-500/15 font-mono text-xs">
+                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Déconnexion
+                    </button>
+                    <button onclick="closeAdminModal()" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 text-parchment flex items-center justify-center">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- View A: Executive Login Screen -->
+            <div id="adminLoginView" class="p-6 sm:p-10 overflow-y-auto flex-1 flex items-center justify-center">
+                <div class="max-w-md w-full bg-slateCard/90 border border-gold/30 rounded-2xl p-6 sm:p-8 space-y-5">
+                    <div class="text-center space-y-1">
+                        <span class="px-2.5 py-1 rounded-full bg-gold/15 text-gold font-mono text-[10px] uppercase tracking-widest">Accès Restreint • Présidence & Bureau</span>
+                        <h4 class="font-serif text-2xl font-bold text-ivory pt-1">Authentification du Bureau</h4>
+                        <p class="text-xs text-parchment/70">Connectez-vous avec vos identifiants Supabase Auth ou utilisez l'accès direct Président.</p>
+                    </div>
+
+                    <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-gold mb-1">Email Administrateur</label>
+                            <input type="email" id="adminEmail" required placeholder="president@polymath-agora.dz"
+                                class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-sm text-ivory">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-gold mb-1">Mot de Passe / Clé du Bureau</label>
+                            <input type="password" id="adminPassword" required placeholder="••••••••••••"
+                                class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-sm text-ivory">
+                        </div>
+                        <p id="adminLoginError" class="hidden text-xs font-mono text-rose-400"></p>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-gold text-obsidian font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all cursor-pointer">
+                            Se Connecter via Supabase Auth
+                        </button>
+                    </form>
+
+                    <div class="pt-3 border-t border-white/10 text-center space-y-2">
+                        <button type="button" onclick="enterExecutivePreviewMode()" class="w-full py-2.5 rounded-xl bg-midnight border border-gold/35 hover:border-gold text-gold font-mono text-xs transition-all cursor-pointer">
+                            <i class="fa-solid fa-key mr-1"></i> Accès Direct Bureau (Synchronisation Supabase Live)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View B: Executive Dashboard (KPIs, Filters, Member Table, Rank Promotion & CSV Export) -->
+            <div id="adminDashboardView" class="hidden p-4 sm:p-6 overflow-y-auto flex-1 space-y-6">
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    <div class="p-4 rounded-xl bg-slateCard border border-gold/30">
+                        <span class="font-mono text-[10px] uppercase text-parchment/60 block">Total Membres</span>
+                        <span id="kpiTotal" class="font-serif text-3xl font-bold text-ivory">0</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slateCard border border-amber-500/30">
+                        <span class="font-mono text-[10px] uppercase text-amber-300 block">Pôle 01 • Forum</span>
+                        <span id="kpiForum" class="font-serif text-3xl font-bold text-amber-300">0</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slateCard border border-cyan-500/30">
+                        <span class="font-mono text-[10px] uppercase text-cyan-300 block">Pôle 02 • Lab</span>
+                        <span id="kpiLab" class="font-serif text-3xl font-bold text-cyan-300">0</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slateCard border border-rose-500/30">
+                        <span class="font-mono text-[10px] uppercase text-rose-300 block">Pôle 03 • Studio</span>
+                        <span id="kpiStudio" class="font-serif text-3xl font-bold text-rose-300">0</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slateCard border border-emerald-500/40 col-span-2 sm:col-span-1">
+                        <span class="font-mono text-[10px] uppercase text-emerald-300 block">Candidats Bureau</span>
+                        <span id="kpiLeaders" class="font-serif text-3xl font-bold text-emerald-300">0</span>
+                    </div>
+                </div>
+
+                <!-- Search, Wing Filter, Leadership Filter & CSV Export Controls -->
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-slateCard/70 p-4 rounded-xl border border-white/10">
+                    <div class="flex flex-wrap items-center gap-3 flex-1">
+                        <div class="relative flex-1 min-w-[200px]">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-parchment/40 text-xs"></i>
+                            <input type="text" id="adminSearchInput" oninput="renderAdminMembersTable()" placeholder="Rechercher par nom, code, filière, contact..."
+                                class="w-full pl-8 pr-3 py-2 rounded-lg bg-obsidian border border-white/15 focus:border-gold focus:outline-none text-xs text-ivory">
+                        </div>
+
+                        <select id="adminWingFilter" onchange="renderAdminMembersTable()" class="px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-xs text-ivory">
+                            <option value="ALL">Tous les Pôles</option>
+                            <option value="FORUM">Pôle 01 — The Forum</option>
+                            <option value="LAB">Pôle 02 — The Lab</option>
+                            <option value="STUDIO">Pôle 03 — The Studio</option>
+                        </select>
+
+                        <label class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-obsidian border border-gold/30 text-xs text-gold cursor-pointer">
+                            <input type="checkbox" id="adminLeaderOnlyFilter" onchange="renderAdminMembersTable()" class="accent-[#C9A24D]">
+                            <span>Candidats Responsabilité uniquement</span>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="fetchMembersFromDatabase()" class="px-3 py-2 rounded-lg bg-midnight border border-white/15 hover:border-gold text-xs font-mono text-parchment flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-rotate"></i> Actualiser
+                        </button>
+                        <button onclick="exportMembersToCSV()" class="px-4 py-2 rounded-lg bg-emerald-500 text-obsidian font-bold text-xs flex items-center gap-1.5 hover:brightness-110 cursor-pointer">
+                            <i class="fa-solid fa-file-csv"></i> Exporter en CSV / Excel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scrollable Members Table -->
+                <div class="border border-white/10 rounded-xl overflow-hidden bg-obsidian/90">
+                    <div class="overflow-x-auto max-h-[420px]">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead class="bg-slateCard text-gold font-mono text-[11px] uppercase sticky top-0 z-10 border-b border-gold/20">
+                                <tr>
+                                    <th class="p-3">Code</th>
+                                    <th class="p-3">Nom & Prénom</th>
+                                    <th class="p-3">Filière & Année</th>
+                                    <th class="p-3">Pôle Principal</th>
+                                    <th class="p-3">Contacts (Email / TG / IG)</th>
+                                    <th class="p-3">Candidature Bureau / Note</th>
+                                    <th class="p-3">Rang / Promotion</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminMembersTableBody" class="divide-y divide-white/10 text-parchment/90">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================================
+        // 1. SUPABASE CONFIGURATION & AUTOMATIC LOCAL BACKUP ENGINE
+        // ============================================================================
+        const SUPABASE_CONFIG = {
+            url: 'https://gbiprlmxcoftwnmuieto.supabase.co',
+            anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdiaXBybG14Y29mdHdubXVpZXRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3NTU4MDUsImV4cCI6MjEwODMzMTgwNX0.cd1S6qK6u2EjvaooXIiHsLH8qw9H08qg63-lafXlxIY'
+        };
+
+        let supabaseClient = null;
+        try {
+            if (window.supabase && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
+                supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+            }
+        } catch (err) {
+            console.warn('Supabase initialization notice:', err);
+        }
+
+        // In-memory & localStorage synchronized cache so the portal never loses data
+        const LOCAL_STORAGE_KEY = 'polymath_agora_members_v2';
+        let membersCache = [];
+
+        function loadLocalMembers() {
+            try {
+                const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (raw) {
+                    membersCache = JSON.parse(raw);
+                }
+            } catch (e) {
+                membersCache = [];
+            }
+        }
+
+        function saveLocalMembers(list) {
+            membersCache = list;
+            try {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
+            } catch (e) {}
+        }
+
+        // ============================================================================
+        // 2. STATE & EXPANDED TRILINGUAL WING DATA (FR / EN / AR)
+        // ============================================================================
+        let currentLang = 'fr';
+        let activeWing = 'forum';
+        let quizAnswers = { 1: null, 2: null, 3: null };
+        let recommendedWingKey = 'forum';
+        let lastGeneratedReceipt = '';
+        let currentMemberCode = 'TPA-2026';
+
+        const wingData = {
+            forum: {
+                badge: {
+                    fr: "PÔLE 01 • TRIBUNE D'ÉLOQUENCE & DE DÉBAT",
+                    en: "WING 01 • ELOQUENCE, RHETORIC & DEBATE FORUM",
+                    ar: "القطب الأول • منبر البلاغة، الخطابة والمناظرات"
+                },
+                title: {
+                    fr: "THE FORUM — L'Art de Commander l'Amphithéâtre",
+                    en: "THE FORUM — The Art of Commanding the Amphitheater",
+                    ar: "المنتدى (THE FORUM) — فنّ قيادة المدرّج وإتقان الخطابة"
+                },
+                quote: {
+                    fr: "« La rhétorique est le pouvoir de transformer une pensée complexe en une évidence lumineuse. »",
+                    en: "« Rhetoric is the power to transform complex thought into luminous clarity. »",
+                    ar: "« البلاغة هي القدرة على تحويل الفكر العميق إلى حقيقة ساطعة تأسر العقول. »"
+                },
+                desc: {
+                    fr: "Conçu pour les futurs enseignants, écrivains et scientifiques de l'ENS, The Forum forme des orateurs capables de s'exprimer avec clarté, assurance et élégance en Français, Anglais et Arabe. Que vous soyez déjà à l'aise à l'oral ou que vous souhaitiez vaincre votre timidité, ce pôle est votre arène d'entraînement.",
+                    en: "Designed for future educators, writers, and scientists at ENS, The Forum trains speakers capable of expressing themselves with clarity, poise, and elegance in French, English, and Arabic. Whether you are already a confident speaker or seeking to conquer stage fright, this wing is your training ground.",
+                    ar: "صُمّم هذا القطب لأساتذة المستقبل والباحثين والمبدعين في المدرسة العليا للأساتذة، حيث يُدرّب الأعضاء على التحدث بطلاقة وثقة وهيبة باللغات الثلاث (العربية، الفرنسية، والإنجليزية). سواء كنت خطيباً متمكناً أو ترغب في كسر حاجز الخجل أمام الجمهور، فهذا هو فضاءك التدريبي."
+                },
+                pillars: {
+                    fr: [
+                        { icon: "fa-comments", name: "Débats Parlementaires & Joutes", detail: "Débats contradictoires structurés sur des sujets philosophiques, littéraires, scientifiques et contemporains." },
+                        { icon: "fa-person-chalkboard", name: "Maîtrise de la Scène & Voix", detail: "Techniques de respiration, posture, gestion du stress, diction et charisme face à un amphithéâtre." },
+                        { icon: "fa-earth-africa", name: "Tribune Trilingue (FR / EN / AR)", detail: "Pratique vivante des langues enseignées à l'ENS à travers des tables rondes et concours d'éloquence." }
+                    ],
+                    en: [
+                        { icon: "fa-comments", name: "Parliamentary Debates & Jousts", detail: "Structured debates on philosophical, literary, scientific, and contemporary topics." },
+                        { icon: "fa-person-chalkboard", name: "Stage Presence & Vocal Mastery", detail: "Breathing techniques, posture, stress management, diction, and amphitheater charisma." },
+                        { icon: "fa-earth-africa", name: "Trilingual Forum (FR / EN / AR)", detail: "Active practice of languages taught at ENS through roundtables and eloquence tournaments." }
+                    ],
+                    ar: [
+                        { icon: "fa-comments", name: "المناظرات الأكاديمية والمساجلات الفكرية", detail: "مناظرات منهجية حول القضايا الفلسفية والأدبية والعلمية والتربوية المعاصرة." },
+                        { icon: "fa-person-chalkboard", name: "الحضور المسرحي والكاريزما الخطابية", detail: "تقنيات الصوت والإلقاء، لغة الجسد، التحكم في التوتر، وإدارة الحوار أمام المدرجات." },
+                        { icon: "fa-earth-africa", name: "منبر ثلاثي اللغات (عربي / فرنسي / إنجليزي)", detail: "ممارسة حية للغات المدرسة عبر ندوات فكرية ومسابقات أولمبياد الفصاحة." }
+                    ]
+                },
+                deliverable: {
+                    fr: "Projet Phare : Les Olympiades d'Éloquence de l'ENS & Le Grand Procès en Amphithéâtre.",
+                    en: "Flagship Output: The ENS Eloquence Olympiad & The Grand Amphitheater Trial.",
+                    ar: "المشروع الرائد: أولمبياد الفصاحة بالمدرسة العليا للأساتذة والمحاكمة الفكرية الكبرى."
+                },
+                selectValue: "THE FORUM (Éloquence & Débat)"
+            },
+            lab: {
+                badge: {
+                    fr: "PÔLE 02 • SYSTÈMES, IA ÉTHIQUE & CYBERSÉCURITÉ",
+                    en: "WING 02 • SYSTEMS, ETHICAL AI & CYBERSECURITY",
+                    ar: "القطب الثاني • الأنظمة الرقمية، الذكاء الاصطناعي والأمن السيبراني"
+                },
+                title: {
+                    fr: "THE LAB — L'Intelligence Technologique au Service de l'Esprit",
+                    en: "THE LAB — Technological Intelligence at the Service of the Mind",
+                    ar: "المختبر (THE LAB) — الذكاء التكنولوجي في خدمة الباحث والمبدع"
+                },
+                quote: {
+                    fr: "« Celui qui ne comprend pas l'architecture des outils qu'il utilise finit par être utilisé par eux. »",
+                    en: "« Those who do not understand the architecture of their tools end up being used by them. »",
+                    ar: "« من لا يفهم هندسة الأدوات الرقمية التي يستخدمها، ينتهي به الأمر أسيراً لها. »"
+                },
+                desc: {
+                    fr: "Aucun prérequis en programmation n'est exigé ! The Lab démystifie la technologie pour les étudiants en lettres, langues, arts et sciences. Apprenez à utiliser l'Intelligence Artificielle comme un assistant de recherche rigoureux, à sécuriser votre vie numérique selon les principes de « The Architect's Key », et à explorer les systèmes libres (Linux).",
+                    en: "No prior coding experience required! The Lab demystifies technology for humanities, arts, language, and science students alike. Learn to wield Artificial Intelligence as a rigorous research assistant, secure your digital life based on 'The Architect's Key' framework, and explore open-source Linux systems.",
+                    ar: "لا يُشترط أي خبرة مسبقة في البرمجة! يهدف المختبر إلى تبسيط التكنولوجيا لطلبة الآداب واللغات والفنون والعلوم. تعلّم توظيف الذكاء الاصطناعي بفعالية وأخلاقية في البحث العلمي، وحماية خصوصيتك الرقمية وفق منهجية «مفتاح المعماري»، واكتشاف أنظمة لينكس والبرمجيات الحرة."
+                },
+                pillars: {
+                    fr: [
+                        { icon: "fa-brain", name: "Flux de Travail IA pour Chercheurs", detail: "Prompt engineering avancé, synthèse bibliographique éthique, vérification des sources et productivité académique." },
+                        { icon: "fa-user-shield", name: "Cybersécurité & « The Architect's Key »", detail: "Protection des données personnelles, gestionnaires de mots de passe, chiffrement et défense contre l'ingénierie sociale." },
+                        { icon: "fa-terminal", name: "Culture Linux & Souveraineté Numérique", detail: "Découverte des systèmes ouverts, autonomie technologique et outils d'écriture/recherche sans pistage." }
+                    ],
+                    en: [
+                        { icon: "fa-brain", name: "AI Workflows for Scholars", detail: "Advanced prompt engineering, ethical literature synthesis, source verification, and academic productivity." },
+                        { icon: "fa-user-shield", name: "Cybersecurity & 'The Architect's Key'", detail: "Personal data protection, password architecture, encryption, and social engineering defense." },
+                        { icon: "fa-terminal", name: "Linux Culture & Digital Sovereignty", detail: "Exploring open operating systems, technological autonomy, and privacy-first writing tools." }
+                    ],
+                    ar: [
+                        { icon: "fa-brain", name: "تطبيقات الذكاء الاصطناعي للباحثين", detail: "هندسة الأوامر المتقدمة، التلخيص المنهجي للمراجع، التدقيق الأكاديمي ومضاعفة الإنتاجية العلمية." },
+                        { icon: "fa-user-shield", name: "الأمن السيبراني وحماية الخصوصية", detail: "تأمين الحسابات والبيانات الشخصية، التشفير، والحماية من الهندسة الاجتماعية والاختراق." },
+                        { icon: "fa-terminal", name: "ثقافة لينكس والسيادة الرقمية", detail: "استكشاف الأنظمة المفتوحة والبرمجيات الحرة وأدوات الكتابة والبحث الآمنة." }
+                    ]
+                },
+                deliverable: {
+                    fr: "Projet Phare : Séminaire « The Architect's Key » & Guide de l'Étudiant Augmenté.",
+                    en: "Flagship Output: 'The Architect's Key' Workshop & The Augmented Scholar Guidebook.",
+                    ar: "المشروع الرائد: سيمينار «مفتاح المعماري للأمن السيبراني» ودليل الطالب الرقمي المتفوق."
+                },
+                selectValue: "THE LAB (Tech, IA & Cybersécurité)"
+            },
+            studio: {
+                badge: {
+                    fr: "PÔLE 03 • ARTS PLASTIQUES & VISUELS, LETTRES, SCÈNE & MÉDIAS",
+                    en: "WING 03 • VISUAL & PERFORMING ARTS, LITERATURE & MEDIA",
+                    ar: "القطب الثالث • الفنون التشكيلية والبصرية، الآداب، المسرح والإعلام"
+                },
+                title: {
+                    fr: "THE STUDIO — L'Atelier des Arts, des Lettres, de la Scène & des Médias",
+                    en: "THE STUDIO — The Nexus of Fine Arts, Literature, Stage & Media",
+                    ar: "المرسم والاستوديو (THE STUDIO) — فضاء الفنون، الآداب، المسرح والإعلام"
+                },
+                quote: {
+                    fr: "« Créer, peindre, écrire et jouer, c'est graver l'âme du campus dans le marbre du temps. »",
+                    en: "« To paint, write, perform, and create is to carve the soul of the campus into time. »",
+                    ar: "« الإبداع الفني والأدبي والمسرحي هو نبض الجامعة وروحها الخالدة. »"
+                },
+                desc: {
+                    fr: "Le cœur artistique, littéraire et médiatique de l'Agora ! The Studio accueille TOUTES les formes d'expression artistique et culturelle à l'ENS : écriture créative (romans, poésie, essais), arts plastiques et visuels (dessin, peinture, calligraphie arabe/tifinagh/latine, photographie, illustration numérique), arts de la scène (théâtre universitaire, dramaturgie, slam/spoken word, musique & chant), ainsi que le journalisme étudiant et le podcasting.",
+                    en: "The artistic, literary, and media heartbeat of the Agora! The Studio embraces ALL forms of artistic and cultural expression at ENS: creative writing (novels, poetry, essays), visual & fine arts (drawing, painting, Arabic/Tifinagh/Latin calligraphy, photography, digital illustration), performing arts (university theater, dramaturgy, spoken word/slam, music & vocal arts), alongside student journalism and podcasting.",
+                    ar: "القلب الفني والأدبي والإعلامي النابض للأغورا! يحتضن الاستوديو جميع أشكال التعبير الفني والثقافي في المدرسة العليا للأساتذة: الكتابة الإبداعية (الرواية، الشعر، المقال الفلسفي)، الفنون التشكيلية والبصرية (الرسم، التصوير الفوتوغرافي، الخط العربي والتيفيناغ واللاتيني، التصميم الرقمي)، الفنون المسرحية والأدائية (المسرح الجامعي، الإلقاء الشعري، الموسيقى والإنشاد)، بالإضافة إلى الصحافة الطلابية، البودكاست وإصدار مجلة النادي."
+                },
+                pillars: {
+                    fr: [
+                        { icon: "fa-paintbrush", name: "Arts Plastiques, Dessin, Calligraphie & Photo", detail: "Ateliers de dessin, peinture, illustration, photographie artistique, calligraphie et expositions culturelles sur le campus." },
+                        { icon: "fa-masks-theater", name: "Théâtre, Scène, Slam & Musique", detail: "Troupe théâtrale de l'Agora, dramaturgie, spoken word, poésie vivante, musique acoustique et performances scéniques." },
+                        { icon: "fa-book-journal-whills", name: "Lettres, Revue « Les Cahiers » & Podcast", detail: "Rédaction littéraire, journalisme culturel, publication de la revue officielle et enregistrement du podcast étudiant." }
+                    ],
+                    en: [
+                        { icon: "fa-paintbrush", name: "Visual Arts, Drawing, Calligraphy & Photo", detail: "Drawing, painting, digital illustration, artistic photography, calligraphy workshops, and campus art exhibitions." },
+                        { icon: "fa-masks-theater", name: "Theater, Stage, Spoken Word & Music", detail: "Agora theater troupe, dramaturgy, slam poetry, acoustic music, vocal arts, and live stage performances." },
+                        { icon: "fa-book-journal-whills", name: "Literature, 'Les Cahiers' Journal & Podcast", detail: "Creative writing, cultural journalism, publishing our flagship review, and producing the campus podcast." }
+                    ],
+                    ar: [
+                        { icon: "fa-paintbrush", name: "الفنون التشكيلية، الرسم، الخط والتصوير", detail: "ورشات الرسم والتلوين، الخط العربي والتيفيناغ، التصوير الفوتوغرافي، التصميم البصري والمعارض الفنية بالمدرسة." },
+                        { icon: "fa-masks-theater", name: "المسرح الجامعي، الإلقاء والموسيقى", detail: "فرقة الأغورا المسرحية، كتابة السيناريو، الإلقاء الشعري (Slam)، الموسيقى والعروض الفنية الحية." },
+                        { icon: "fa-book-journal-whills", name: "الأدب، مجلة «دفاتر الأغورا» والبودكاست", detail: "ورشات القصة والشعر والمقال، الصحافة الثقافية، إصدار المجلة الفصلية وإنتاج البودكاست الصوتي." }
+                    ]
+                },
+                deliverable: {
+                    fr: "Projet Phare : Salon des Arts de l'ENS, Revue « Les Cahiers de l'Agora », Troupe Théâtrale & Podcast.",
+                    en: "Flagship Output: ENS Fine Arts Exhibition, 'Les Cahiers de l'Agora' Review, Theater Production & Podcast.",
+                    ar: "المشروع الرائد: معرض الفنون الجميلة، مجلة «دفاتر الأغورا»، العروض المسرحية وإطلاق البودكاست."
+                },
+                selectValue: "THE STUDIO (Arts, Lettres, Scène & Médias)"
+            }
+        };
+
+        // ============================================================================
+        // 3. COMPLETE 12-ARTICLE CHARTER IN FR, EN, AND AR
+        // ============================================================================
+        const charterTranslations = {
+            fr: `
+                <div class="p-4 rounded-xl bg-obsidian border border-gold/30 font-mono text-xs text-gold">
+                    CLUB SCIENTIFIQUE, LITTÉRAIRE, ARTISTIQUE ET TECHNOLOGIQUE : « L’AGORA DES POLYMATHES » (THE POLYMATH AGORA)<br>
+                    ÉCOLE NORMALE SUPÉRIEURE (ENS) DE TIZI OUZOU — DOSSIER D'AGRÉMENT OFFICIEL
+                </div>
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITRE I : DISPOSITIONS GÉNÉRALES, DÉNOMINATION ET SIÈGE</h4>
+                <p><strong>Article 1 (Constitution) :</strong> Il est fondé au sein de l’École Normale Supérieure (ENS) de Tizi Ouzou une organisation estudiantine à caractère scientifique, culturel, littéraire, artistique et technologique dénommée : « L’Agora des Polymathes » (The Polymath Agora), régie par les textes réglementaires du Ministère de l’Enseignement Supérieur et de la Recherche Scientifique (MESRS).</p>
+                <p><strong>Article 2 (Siège) :</strong> Le siège officiel du club est établi au sein du campus de l’ENS de Tizi Ouzou. Il peut être transféré dans tout autre local mis à disposition par la Direction de l’établissement.</p>
+                <p><strong>Article 3 (Neutralité et Principes) :</strong> L’Agora des Polymathes est une organisation académique apolitique et à but non lucratif. Elle promeut l’excellence académique, le débat intellectuel rigoureux, la création artistique, l’esprit critique et l'émancipation numérique des étudiants.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITRE II : OBJECTIFS ET STRUCTURATION EN TROIS PÔLES</h4>
+                <p><strong>Article 4 (Missions Principales) :</strong><br>
+                1. Développer l'aisance oratoire et les compétences argumentatives trilingues (Français, Anglais, Arabe).<br>
+                2. Démocratiser la culture numérique, la cybersécurité pratique, la protection des données personnelles et l'usage méthodologique et éthique de l'IA.<br>
+                3. Promouvoir la création littéraire, les arts plastiques et visuels (dessin, peinture, calligraphie, photographie), les arts de la scène (théâtre, slam, musique) et les médias étudiants (revue, podcast).<br>
+                4. Créer une synergie interdisciplinaire décloisonnant les sciences exactes, les lettres et les arts.</p>
+                <p><strong>Article 5 (Structuration Opérationnelle en Trois Pôles) :</strong><br>
+                • <strong>Pôle 1 : « The Forum » (Tribune d'Éloquence et de Débat)</strong> — Joutes verbales, art oratoire, modération de panels et conférences.<br>
+                • <strong>Pôle 2 : « The Lab » (Atelier des Systèmes et du Numérique)</strong> — Cybersécurité personnelle (« The Architect's Key »), logiciels libres (Linux) et flux de travail d'IA éthique.<br>
+                • <strong>Pôle 3 : « The Studio » (Arts, Lettres, Scène & Médias)</strong> — Arts plastiques et visuels, écriture créative, théâtre universitaire, musique, revue « Les Cahiers de l'Agora », photographie, design et podcasting.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITRE III : COMPOSITION ET ADHÉSION</h4>
+                <p><strong>Article 6 (Catégories de Membres) :</strong> Le club se compose de Membres Fondateurs, de Membres du Bureau Exécutif, de Coordinateurs de Pôles, de Membres Actifs et de Membres Honoraires.</p>
+                <p><strong>Article 7 (Conditions d'Adhésion) :</strong> L'adhésion est ouverte à tout étudiant régulièrement inscrit à l'ENS de Tizi Ouzou, sans distinction de niveau ou de filière. Tout nouvel adhérent intègre le club avec le statut de « Membre Actif » et peut soumettre sa candidature au Bureau Exécutif pour rejoindre une cellule de coordination ou de responsabilité.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITRE IV : ORGANES DE DIRECTION ET ADMINISTRATION</h4>
+                <p><strong>Article 8 (L’Assemblée Générale) :</strong> Organe souverain réunissant l'ensemble des membres actifs au moins une fois par semestre.</p>
+                <p><strong>Article 9 (Le Bureau Exécutif) :</strong> Composé de la Présidence, de la Vice-Présidence, du Secrétariat Général, de la Trésorerie Générale et des Directeurs des trois Pôles (Forum, Lab, Studio).</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITRE V : RESSOURCES, ÉTHIQUE ET VALIDATION</h4>
+                <p><strong>Article 10 (Ressources) :</strong> Dotations logistiques et accès aux infrastructures accordés par l'administration de l'ENS (amphithéâtres, salles d'ateliers, espaces d'exposition).</p>
+                <p><strong>Article 11 (Discipline et Éthique) :</strong> Le respect mutuel, la probité intellectuelle et le respect des biens de l'établissement sont strictement exigés.</p>
+                <p><strong>Article 12 (Entrée en vigueur) :</strong> Le présent statut entre en vigueur dès son adoption par l’Assemblée Générale Constitutive et sa validation par la Direction de l'ENS de Tizi Ouzou.</p>
+            `,
+            en: `
+                <div class="p-4 rounded-xl bg-obsidian border border-gold/30 font-mono text-xs text-gold">
+                    SCIENTIFIC, LITERARY, ARTISTIC & TECHNOLOGICAL SOCIETY: "THE POLYMATH AGORA" (L’AGORA DES POLYMATHES)<br>
+                    ÉCOLE NORMALE SUPÉRIEURE (ENS) OF TIZI OUZOU — OFFICIAL ACCREDITATION CHARTER
+                </div>
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITLE I: GENERAL PROVISIONS, NAME AND SEAT</h4>
+                <p><strong>Article 1 (Constitution):</strong> An interdisciplinary scientific, cultural, literary, artistic, and technological student society named "L’Agora des Polymathes" (The Polymath Agora) is hereby established at the École Normale Supérieure (ENS) of Tizi Ouzou, governed by MESRS university regulations.</p>
+                <p><strong>Article 2 (Official Seat):</strong> The official headquarters of the society is located within the ENS Tizi Ouzou campus.</p>
+                <p><strong>Article 3 (Principles):</strong> The Polymath Agora is a non-profit, non-political academic society promoting intellectual rigor, artistic creation, critical thinking, and digital empowerment.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITLE II: OBJECTIVES AND THREE-WING ARCHITECTURE</h4>
+                <p><strong>Article 4 (Core Missions):</strong><br>
+                1. Cultivate trilingual public speaking, rhetoric, and debate skills (French, English, Arabic).<br>
+                2. Democratize technological literacy, practical cybersecurity, digital privacy, and ethical AI research workflows.<br>
+                3. Foster literary creation, visual and fine arts (drawing, painting, calligraphy, photography), performing arts (theater, spoken word, music), and student media.<br>
+                4. Bridge humanities, fine arts, and exact sciences.</p>
+                <p><strong>Article 5 (The Three Operational Wings):</strong><br>
+                • <strong>Wing 1: "The Forum"</strong> — Eloquence, parliamentary debate, panel moderation, and conferences.<br>
+                • <strong>Wing 2: "The Lab"</strong> — Cybersecurity ("The Architect's Key"), open-source systems (Linux), and ethical AI workflows.<br>
+                • <strong>Wing 3: "The Studio"</strong> — Visual & fine arts, creative writing, university theater, music, "Les Cahiers de l'Agora" journal, photography, and podcasting.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITLE III & IV: MEMBERSHIP AND GOVERNANCE</h4>
+                <p><strong>Article 6 & 7 (Membership):</strong> Open to all enrolled students at ENS Tizi Ouzou across all departments and years. Every new entrant joins as an official "Regular Active Member" (Membre Actif) and may apply to the Presidency for coordinator or executive committee responsibilities.</p>
+                <p><strong>Article 8 & 9 (Executive Bureau):</strong> Governed by the General Assembly and administered by the Executive Bureau: President, Vice-President, Secretary-General, Treasurer, and the Directors of the three Wings.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">TITLE V: RESOURCES, ETHICS AND ENACTMENT</h4>
+                <p><strong>Article 10, 11 & 12:</strong> Supported by institutional facilities granted by the ENS Administration. Enters into force upon adoption by the Founding General Assembly.</p>
+            `,
+            ar: `
+                <div class="p-4 rounded-xl bg-obsidian border border-gold/30 font-mono text-xs text-gold">
+                    النادي العلمي والأدبي والفني والتكنولوجي: «أغورا الموسوعيين» (THE POLYMATH AGORA)<br>
+                    المدرسة العليا للأساتذة (ENS) بتيزي وزو — القانون الأساسي والنظام الداخلي الرسمي
+                </div>
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">الباب الأول: أحكام عامة، التسمية والمقر</h4>
+                <p><strong>المادة 1 (التأسيس):</strong> يُؤسّس داخل المدرسة العليا للأساتذة بتيزي وزو تنظيم طلابي ذو طابع علمي، ثقافي، أدبي، فني وتكنولوجي يحمل اسم: «أغورا الموسوعيين» (L’Agora des Polymathes / The Polymath Agora)، ويخضع للوائح وزارة التعليم العالي والبحث العلمي.</p>
+                <p><strong>المادة 2 (المقر):</strong> يقع المقر الرسمي للنادي داخل الحرم الجامعي للمدرسة العليا للأساتذة بتيزي وزو.</p>
+                <p><strong>المادة 3 (المبادئ):</strong> النادي هيئة أكاديمية غير سياسية وغير ربحية، تهدف إلى ترقية التميز العلمي، الحوار الفكري الرصين، الإبداع الفني والأدبي، والتمكين الرقمي للطلبة.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">الباب الثاني: الأهداف والهيكلة في ثلاثة أقطاب</h4>
+                <p><strong>المادة 4 (المهام الأساسية):</strong><br>
+                1. تنمية مهارات الخطابة والبلاغة والمناظرة باللغات الثلاث (العربية، الفرنسية، الإنجليزية).<br>
+                2. نشر الثقافة الرقمية، الأمن السيبراني العملي، حماية البيانات الشخصية، والاستخدام المنهجي والأخلاقي للذكاء الاصطناعي.<br>
+                3. تشجيع الإبداع الأدبي، الفنون التشكيلية والبصرية (الرسم، الخط، التصوير)، الفنون المسرحية والموسيقية، والإعلام الطلابي.<br>
+                4. مدّ الجسور المعرفية بين العلوم الدقيقة والعلوم الإنسانية والفنون.</p>
+                <p><strong>المادة 5 (الأقطاب العملياتية الثلاثة):</strong><br>
+                • <strong>القطب الأول (The Forum - المنتدى):</strong> منبر الخطابة، المناظرات الفكرية، وتنشيط الندوات.<br>
+                • <strong>القطب الثاني (The Lab - المختبر):</strong> ورشات الأنظمة المفتوحة (Linux)، الأمن السيبراني («مفتاح المعماري»)، وتطبيقات الذكاء الاصطناعي.<br>
+                • <strong>القطب الثالث (The Studio - الاستوديو والمرسم):</strong> الفنون التشكيلية والرسم والخط، الكتابة الإبداعية والشعر، المسرح الجامعي والموسيقى، مجلة «دفاتر الأغورا» والبودكاست.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">الباب الثالث والرابع: العضوية وهيئات التسيير</h4>
+                <p><strong>المادة 6 و 7 (العضوية):</strong> العضوية مفتوحة لجميع طلبة المدرسة العليا للأساتذة بتيزي وزو من كافة التخصصات والسنوات. ينضم كل طالب مسجل بصفة «عضو نشط» (Membre Actif)، ويمكنه تقديم طلب لرئاسة النادي للترشح لمناصب التنسيق أو اللجان التنظيمية.</p>
+                <p><strong>المادة 8 و 9 (المكتب التنفيذي):</strong> يُسيّر النادي مكتب تنفيذي يتكون من: الرئيس، نائب الرئيس، الأمين العام، أمين المال، ومديري الأقطاب الثلاثة.</p>
+
+                <h4 class="font-serif text-lg font-bold text-gold pt-2">الباب الخامس: الموارد، الأخلاقيات والنفاذ</h4>
+                <p><strong>المواد 10، 11 و 12:</strong> يعتمد النادي على الفضاءات والمدرجات التي تضعها إدارة المدرسة تحت تصرفه، ويلتزم أعضاؤه بأخلاقيات الجامعة والاحترام المتبادل. يدخل هذا القانون حيز التنفيذ فور المصادقة عليه.</p>
+            `
+        };
+
+        // ============================================================================
+        // 4. TRILINGUAL UI DICTIONARY (FR / EN / AR)
+        // ============================================================================
+        const i18nDict = {
+            en: {
+                topbar_inst: "ÉCOLE NORMALE SUPÉRIEURE (ENS) TIZI OUZOU • SCIENTIFIC, LITERARY & ARTISTIC SOCIETY",
+                topbar_charter: "Official Charter & Statutes",
+                topbar_admin: "Executive Portal",
+                nav_brand: "THE POLYMATH AGORA",
+                nav_subtitle: "L'Agora des Polymathes • ENS Tizi Ouzou",
+                nav_manifesto: "Manifesto",
+                nav_wings: "The 3 Wings",
+                nav_diagnostic: "Wing Finder",
+                nav_events: "Roadmap",
+                nav_governance: "Governance",
+                nav_cta: "Join the Agora",
+                hero_badge: "The Flagship Interdisciplinary Society at ENS",
+                hero_title_1: "The Voice of Letters & Arts.",
+                hero_title_2: "The Intelligence of Systems.",
+                hero_desc: "Welcome to <strong class='text-ivory font-semibold'>The Polymath Agora</strong> (<em class='text-gold'>L’Agora des Polymathes</em>). More than a student club, we are the intellectual, scientific, and artistic nexus of ENS Tizi Ouzou where amphitheater eloquence, literary creation, fine & performing arts, and technological mastery converge.",
+                hero_btn_join: "Claim My Membership Pass",
+                hero_btn_explore: "Explore the 3 Wings",
+                stat_1_val: "3 Wings",
+                stat_1: "Forum • Lab • Studio",
+                stat_2: "Trilingual Forum",
+                stat_3: "All Majors & Arts",
+                triad_header: "Operational Architecture",
+                triad_title: "The Polymath Triad",
+                pole_01_badge: "Wing 01",
+                pole_02_badge: "Wing 02",
+                pole_03_badge: "Wing 03",
+                triad_forum_desc: "Public speaking, rhetoric, trilingual debates (FR/EN/AR) & amphitheater leadership.",
+                triad_lab_desc: "Ethical AI for scholars, practical cybersecurity ('The Architect's Key'), privacy & Linux.",
+                triad_studio_desc: "Visual & fine arts, creative writing, university theater & slam, music, calligraphy, podcast & media.",
+                triad_quote: "« Speakers, Builders, Creators & Artists. »",
+                triad_quiz_link: "Find my wing →",
+                manifesto_eyebrow: "01 • The Founding Manifesto",
+                manifesto_title: "Why Become a Polymath in the 21st Century?",
+                manifesto_subtitle: "At the École Normale Supérieure, we cultivate the minds that will educate, inspire, and guide tomorrow's society. Academic and artistic excellence cannot thrive in isolated silos.",
+                pillar1_title: "Uniting Knowledge & Arts",
+                pillar1_desc: "The literature, arts, or language student who masters AI workflows and digital safety holds a decisive edge. The science student who commands rhetoric, art, and the pen becomes a complete leader.",
+                pillar2_badge: "Agora DNA",
+                pillar2_title: "Confidence, Stage & Creation",
+                pillar2_desc: "Many brilliant students and talented artists remain silent out of hesitation. The Agora is a prestigious arena where everyone learns to command an amphitheater, exhibit their art, and perform on stage.",
+                pillar3_title: "Digital Sovereignty",
+                pillar3_desc: "In an era of cyber threats and AI disruption, protecting digital privacy, understanding systems architecture, and using AI ethically is a vital skill for every student.",
+                wings_eyebrow: "02 • Operational Departments",
+                wings_title: "Three Wings. One Shared Ambition.",
+                wings_helper: "Every member selects a <strong class='text-ivory'>Primary Wing</strong> to develop their talent while remaining free to join workshops, exhibitions, and conferences across all wings.",
+                wing_tag_forum: "Eloquence",
+                wing_tag_lab: "Tech & AI",
+                wing_tag_studio: "Arts, Letters & Media",
+                quiz_badge: "Interactive Diagnostic • 30 Seconds",
+                quiz_title: "Which Wing of the Agora Fits You Best?",
+                quiz_subtitle: "Answer these 3 quick questions to discover your Polymath profile and pre-fill your membership application.",
+                q1_title: "1. Which skill or passion do you want to develop most this year?",
+                q1_a1: "Captivate an audience, debate with eloquence, and conquer stage fright.",
+                q1_a2: "Master AI tools for my studies, secure my digital privacy, and explore Linux.",
+                q1_a3: "Write, paint/draw, act in theater/slam, play music, photograph, or host a podcast.",
+                q2_title: "2. During a major cultural and scientific event at ENS, which role excites you most?",
+                q2_a1: "Taking the microphone on stage, moderating the panel, or debating.",
+                q2_a2: "Running a live interactive demonstration on AI workflows or cybersecurity.",
+                q2_a3: "Exhibiting artwork, performing on stage, editing the literary review, or directing media.",
+                q3_title: "3. Which maxim resonates most with your personal philosophy?",
+                q3_a1: "« Speech is the weapon of free minds. »",
+                q3_a2: "« To understand the system is to hold its key. »",
+                q3_a3: "« Art and literature carve the soul of an era. »",
+                quiz_res_label: "Your Polymath Profile Result",
+                quiz_res_btn: "Select this Wing & Apply →",
+                roadmap_eyebrow: "03 • Official Activity Calendar",
+                roadmap_title: "Inaugural Semester Roadmap",
+                roadmap_subtitle: "From flagship amphitheater debates to artistic exhibitions, literary reviews, and tech workshops at ENS Tizi Ouzou.",
+                ev1_tag: "Flagship Event #1",
+                ev1_loc: "Main Amphitheater",
+                ev1_title: "The Grand Trial of Artificial Intelligence",
+                ev1_desc: "Theatrical debate and inaugural conference: 'Is AI the end of literary, artistic, and pedagogical creation, or its renaissance?' Followed by a live demonstration.",
+                ev2_loc: "Hands-on Workshop",
+                ev2_title: "'The Architect's Key': Cybersecurity & Privacy",
+                ev2_desc: "Practical digital self-defense seminar: securing accounts, defeating social engineering, encrypting academic files, and mastering AI research tools.",
+                ev3_title: "The ENS Eloquence Olympiad",
+                ev3_desc: "Public speaking training cycle, body language mastery, classical rhetoric, and inter-department parliamentary debate tournament.",
+                ev4_loc: "Gallery & Stage",
+                ev4_title: "Fine Arts Salon, 'Les Cahiers' Journal & Open Stage",
+                ev4_desc: "Visual arts, photography, and calligraphy exhibition, launch of our literary journal, open stage (theater, slam, music), and podcast recording.",
+                ev_rsvp: "Reserve my spot",
+                gov_eyebrow: "04 • Institutional Architecture",
+                gov_title: "Governance & Executive Bureau",
+                gov_desc: "Structured in accordance with MESRS academic standards, The Polymath Agora combines administrative rigor with openness to literary, scientific, and artistic talents across all years.",
+                role_pres_tag: "Strategic Direction",
+                role_pres: "Presidency & Vice-Presidency",
+                role_pres_desc: "Official representation before the ENS Direction, intellectual steering, and inter-wing supervision.",
+                role_sec_tag: "Administration & Records",
+                role_sec: "General Secretariat & Treasury",
+                role_sec_desc: "Registry management, official minutes, membership records, room logistics, and administrative relations.",
+                role_leads_badge: "Student Leadership Pathway",
+                role_open: "Leadership Applications Open",
+                role_leads: "Wing Directors & Coordinators (Forum, Lab, Studio)",
+                role_leads_desc: "Every new member initially joins as a Regular Active Member (Membre Actif). Motivated students wishing to join the Executive Bureau, lead an artistic/scientific workshop, or coordinate a team can check the 'Apply for a leadership role' box in the form below.",
+                charter_eyebrow: "Regulatory Dossier",
+                charter_card_title: "Statutes & Internal Regulations",
+                charter_card_desc: "Read or download as a formal A4 PDF the official founding charter of <strong class='text-ivory'>The Polymath Agora</strong> filed with the ENS Tizi Ouzou administration (12 Articles).",
+                btn_read_charter: "Read Full Charter",
+                btn_pdf_charter: "Download PDF",
+                join_eyebrow: "05 • Official Membership Portal",
+                join_title: "Join The Polymath Agora",
+                join_subtitle: "Membership is free and open to all students of ENS Tizi Ouzou. Complete your profile below to register and download your <strong class='text-gold'>Official Membership Pass (PDF)</strong>.",
+                form_name: "Full Name *",
+                form_contact_header: "Contact Channels (Fill at least 1 channel) *",
+                form_contact_hint: "Only 1 required • Email, Telegram, or Instagram",
+                form_email_lbl: "Email",
+                form_tg_lbl: "Telegram / Phone",
+                form_ig_lbl: "Instagram",
+                form_contact_err: "⚠ Please provide at least one contact method (Email, Telegram, or Instagram).",
+                form_dept: "Department / Major (ENS) *",
+                form_year: "Study Year *",
+                form_wing: "Primary Wing Choice *",
+                form_role: "Initial Membership Status",
+                locked_role_label: "Membre Actif (Regular Member)",
+                locked_role_tag: "Locked Default",
+                form_higher_rank_toggle: "Would you like to apply for a leadership/coordinator role (Wing Coordinator, Organization, Arts/Media, or Executive Bureau)?",
+                lead_panel_intro: "Executive & Coordinator Selection Process:",
+                lead_panel_instructions: "Coordinator and Executive Bureau roles are reviewed directly by the Presidency. Write your pitch below or message the President directly:",
+                lead_pitch_label: "Application Message to the President & Vice-President",
+                form_note: "Your artistic, literary, or scientific interests (Optional)",
+                form_submit: "Submit Application & Generate Pass (PDF)",
+                pass_holder: "Member Name",
+                pass_dept: "Department",
+                pass_year: "Year",
+                pass_wing: "Primary Wing Affiliation",
+                btn_download_pass_pdf: "Download My Pass (PDF)",
+                pass_btn_copy: "Copy Receipt",
+                pass_confirmed_title: "Membership registered & Official Pass ready!",
+                pass_confirmed_desc: "Your application has been saved to the official Polymath Agora registry. Click 'Download My Pass (PDF)' to save your high-resolution card.",
+                modal_charter_eyebrow: "Official Accreditation Document • ENS Tizi Ouzou",
+                modal_charter_title: "Founding Charter & Internal Regulations (12 Articles)",
+                btn_pdf_charter_full: "Download Official Charter (PDF)",
+                btn_copy_charter: "Copy Text",
+                btn_close: "Close",
+                admin_modal_title: "Executive Bureau Portal & Member Database"
+            },
+            ar: {
+                topbar_inst: "المدرسة العليا للأساتذة (ENS) تيزي وزو • النادي العلمي والأدبي والفني والتكنولوجي",
+                topbar_charter: "القانون الأساسي والاعتماد الرسمي",
+                topbar_admin: "بوابة المكتب التنفيذي",
+                nav_brand: "أغورا الموسوعيين • THE POLYMATH AGORA",
+                nav_subtitle: "L'Agora des Polymathes • المدرسة العليا للأساتذة تيزي وزو",
+                nav_manifesto: "البيان التأسيسي",
+                nav_wings: "الأقطاب الثلاثة",
+                nav_diagnostic: "بوصلة التوجيه",
+                nav_events: "البرنامج السنوي",
+                nav_governance: "الهيكلة والقانون",
+                nav_cta: "انضم إلى الأغورا",
+                hero_badge: "أول مجتمع طلابي متعدد التخصصات والفنون بالمدرسة العليا للأساتذة",
+                hero_title_1: "صوت الآداب والفنون.",
+                hero_title_2: "وذكاء الأنظمة الحديثة.",
+                hero_desc: "مرحباً بكم في <strong class='text-ivory font-semibold'>أغورا الموسوعيين</strong> (<em class='text-gold'>The Polymath Agora</em>). أكثر من مجرد نادٍ طلابي، نحن الملتقى الفكري والعلمي والفني للمدرسة العليا للأساتذة بتيزي وزو، حيث تلتقي فصاحة المدرجات، والإبداع الأدبي، والفنون التشكيلية والمسرحية، والتمكن التكنولوجي لصناعة قادة وأساتذة الغد.",
+                hero_btn_join: "احصل على بطاقة العضوية الرسمية",
+                hero_btn_explore: "استكشف الأقطاب الثلاثة",
+                stat_1_val: "3 أقطاب",
+                stat_1: "المنتدى • المختبر • الاستوديو",
+                stat_2: "منبر ثلاثي اللغات",
+                stat_3: "مفتوح لكل التخصصات والفنون",
+                triad_header: "الهندسة العملياتية للنادي",
+                triad_title: "ثلاثية الطالب الموسوعي",
+                pole_01_badge: "القطب 01",
+                pole_02_badge: "القطب 02",
+                pole_03_badge: "القطب 03",
+                triad_forum_desc: "فن الخطابة، البلاغة، المناظرات الفكرية باللغات الثلاث (عربي/فرنسي/إنجليزي) والقيادة في المدرج.",
+                triad_lab_desc: "الذكاء الاصطناعي للباحثين، الأمن السيبراني العملي («مفتاح المعماري»)، حماية الخصوصية وأنظمة لينكس.",
+                triad_studio_desc: "الفنون التشكيلية والرسم والخط، الكتابة الإبداعية والشعر، المسرح الجامعي والموسيقى، التصوير، المجلة والبودكاست.",
+                triad_quote: "« خطباء، بُناة، كُتّاب وفنانون. »",
+                triad_quiz_link: "اكتشف قطبك المناسب ←",
+                manifesto_eyebrow: "01 • البيان التأسيسي للأغورا",
+                manifesto_title: "لماذا نحتاج إلى الطالب الموسوعي في القرن الحادي والعشرين؟",
+                manifesto_subtitle: "في المدرسة العليا للأساتذة، نُعدّ العقول التي ستُعلّم وتُلهم وتقود مجتمع الغد. التميز الأكاديمي والفني اليوم لا يمكن أن يزدهر في جزر معزولة.",
+                pillar1_title: "تكامل العلوم والآداب والفنون",
+                pillar1_desc: "طالب الآداب أو اللغات أو الفنون الذي يتقن أدوات الذكاء الاصطناعي والأمن الرقمي يمتلك تفوقاً حاسماً، وطالب العلوم الذي يمتلك ناصية البيان والقلم والحس الفني يصبح قائداً مؤثراً.",
+                pillar2_badge: "جوهر الأغورا",
+                pillar2_title: "الثقة، الحضور المسرحي والإبداع",
+                pillar2_desc: "كثير من الطلبة الموهوبين والفنانين المبدعين يظلون في الظل بسبب التردد. الأغورا توفر فضاءً راقياً ومحفزاً يتعلم فيه الجميع اعتلاء المنصة، عرض لوحاتهم وإبداعاتهم، ونشر أعمالهم.",
+                pillar3_title: "السيادة والوعي الرقمي",
+                pillar3_desc: "في عصر التهديدات السيبرانية وثورة الذكاء الاصطناعي، تُعدّ حماية الخصوصية الرقمية وفهم بنية الأنظمة واستخدام التقنية بمنهجية علمية مهارة أساسية لكل طالب.",
+                wings_eyebrow: "02 • الأقسام العملياتية الثلاثة",
+                wings_title: "ثلاثة أقطاب.. طموح واحد مشترك.",
+                wings_helper: "يختار كل عضو <strong class='text-ivory'>قطباً رئيسياً</strong> لتطوير مهاراته ومواهبه، مع حرية المشاركة في الورشات والمعارض والمؤتمرات الخاصة ببقية الأقطاب.",
+                wing_tag_forum: "الخطابة والمناظرة",
+                wing_tag_lab: "التقنية والذكاء الاصطناعي",
+                wing_tag_studio: "الفنون والآداب والإعلام",
+                quiz_badge: "تشخيص تفاعلي • 30 ثانية",
+                quiz_title: "أيّ قطب في الأغورا يناسب شخصيتك ومواهبك؟",
+                quiz_subtitle: "أجب عن هذه الأسئلة الثلاثة السريعة لاكتشاف ملفك الموسوعي وتعبئة استمارة التسجيل تلقائياً.",
+                q1_title: "1. ما هي المهارة أو الموهبة التي ترغب في تطويرها بالدرجة الأولى هذا العام؟",
+                q1_a1: "إبهار الجمهور، المناظرة بفصاحة، والتغلب على رهبة المسرح والمدرج.",
+                q1_a2: "إتقان أدوات الذكاء الاصطناعي في دراستي، تأمين بياناتي الرقمية، واستكشاف نظام لينكس.",
+                q1_a3: "الكتابة الأدبية، الرسم والفنون التشكيلية، المسرح والموسيقى، التصوير، أو تقديم بودكاست.",
+                q2_title: "2. خلال تظاهرة ثقافية وعلمية كبرى بالمدرسة، أي دور يجذبك أكثر؟",
+                q2_a1: "اعتلاء المنصة للتحدث، إدارة الجلسة الحوارية، أو خوض المناظرة.",
+                q2_a2: "تقديم عرض تطبيقي مباشر حول الذكاء الاصطناعي أو الأمن السيبراني.",
+                q2_a3: "عرض لوحاتي وأعمالي الفنية، التمثيل المسرحي/الإلقاء، تحرير المجلة أو الإشراف الإعلامي.",
+                q3_title: "3. أيّ مقولة تعبّر أكثر عن رؤيتك الشخصية؟",
+                q3_a1: "« الكلمة الحرة سلاح العقول المستنيرة. »",
+                q3_a2: "« من يفهم هندسة النظام يمتلك مفتاحه. »",
+                q3_a3: "« الفن والأدب يخلّدان روح العصر. »",
+                quiz_res_label: "نتيجة تشخيص ملفك الموسوعي",
+                quiz_res_btn: "اختر هذا القطب وسجّل الآن ←",
+                roadmap_eyebrow: "03 • الرزنامة الرسمية للأنشطة",
+                roadmap_title: "البرنامج الافتتاحي للأغورا",
+                roadmap_subtitle: "من المناظرات الكبرى في المدرج إلى المعارض الفنية وورشات الكتابة والأمن السيبراني بالمدرسة العليا للأساتذة تيزي وزو.",
+                ev1_tag: "الحدث الرائد #1",
+                ev1_loc: "المدرج المركزي",
+                ev1_title: "المحاكمة الكبرى للذكاء الاصطناعي",
+                ev1_desc: "مناظرة مسرحية وندوة افتتاحية: «هل الذكاء الاصطناعي نهاية للإبداع الأدبي والفني والتربوي أم ولادة جديدة له؟» متبوعة بعرض تطبيقي مباشر.",
+                ev2_loc: "ورشة تطبيقية",
+                ev2_title: "«مفتاح المعماري»: الأمن السيبراني وحماية الخصوصية",
+                ev2_desc: "دورة تطبيقية في الدفاع الرقمي الذاتي: تأمين الحسابات، التصدي للهندسة الاجتماعية، تشفير الوثائق الأكاديمية وإتقان أدوات الذكاء الاصطناعي للبحث.",
+                ev3_title: "أولمبياد الفصاحة والبيان بالمدرسة العليا للأساتذة",
+                ev3_desc: "دورة تدريبية في فن الخطابة ولغة الجسد والبلاغة، متبوعة ببطولة المناظرات البرلمانية بين الأقسام باللغات الثلاث.",
+                ev4_loc: "معرض ومنصة فنية",
+                ev4_title: "صالون الفنون الجميلة، مجلة «دفاتر الأغورا» والمسرح المفتوح",
+                ev4_desc: "معرض للفنون التشكيلية والتصوير والخط، إطلاق المجلة الأدبية للنادي، عروض مسرحية وشعرية وموسيقية، وتسجيل حلقات البودكاست.",
+                ev_rsvp: "احجز مقعدي",
+                gov_eyebrow: "04 • الهيكلة المؤسساتية",
+                gov_title: "الحوكمة والمكتب التنفيذي",
+                gov_desc: "تجمع أغورا الموسوعيين بين الانضباط الإداري وفق معايير وزارة التعليم العالي والانفتاح الكامل على المواهب الأدبية والعلمية والفنية من جميع الدفعات.",
+                role_pres_tag: "القيادة الاستراتيجية",
+                role_pres: "الرئاسة ونيابة الرئاسة",
+                role_pres_desc: "التمثيل الرسمي أمام إدارة المدرسة، التوجيه الفكري العام، والإشراف على التنسيق بين الأقطاب الثلاثة.",
+                role_sec_tag: "الإدارة والسجلات",
+                role_sec: "الأمانة العامة وأمانة المال",
+                role_sec_desc: "ضبط السجلات الرسمية، تحرير المحاضر، تسيير طلبات العضوية، والتنسيق اللوجستي للقاعات والمدرجات.",
+                role_leads_badge: "فرصة للقيادة الطلابية",
+                role_open: "باب الترشح لمناصب التنسيق مفتوح",
+                role_leads: "مديرو ومنسقو الأقطاب (المنتدى، المختبر، الاستوديو)",
+                role_leads_desc: "ينضم كل طالب جديد بصفة «عضو نشط» (Membre Actif) بشكل تلقائي. ويمكن للطلبة الراغبين في تحمل مسؤوليات داخل المكتب أو تنسيق الورشات الفنية والعلمية والإعلامية تفعيل خيار الترشح للمسؤولية في استمارة التسجيل أسفله.",
+                charter_eyebrow: "الملف القانوني والتنظيمي",
+                charter_card_title: "القانون الأساسي والنظام الداخلي",
+                charter_card_desc: "اطّلع بشفافية تامة أو حمّل بصيغة PDF الميثاق التأسيسي الرسمي لنادي <strong class='text-ivory'>أغورا الموسوعيين</strong> المودع لدى إدارة المدرسة (12 مادة كاملة).",
+                btn_read_charter: "قراءة القانون الكامل",
+                btn_pdf_charter: "تحميل بصيغة PDF",
+                join_eyebrow: "05 • بوابة الانتساب الرسمي",
+                join_title: "الانضمام إلى أغورا الموسوعيين",
+                join_subtitle: "التسجيل مجاني ومفتوح لجميع طلبة المدرسة العليا للأساتذة بتيزي وزو. املأ استمارتك أدناه لتسجيل عضويتك وتحميل <strong class='text-gold'>بطاقة العضوية الرسمية (PDF)</strong> فوراً.",
+                form_name: "الاسم واللقب الكامل *",
+                form_contact_header: "قنوات التواصل (يرجى ملء قناة واحدة على الأقل) *",
+                form_contact_hint: "يكفي إدخال وسيلة تواصل واحدة فقط (البريد أو تيليغرام أو إنستغرام)",
+                form_email_lbl: "البريد الإلكتروني",
+                form_tg_lbl: "تيليغرام / رقم الهاتف",
+                form_ig_lbl: "حساب إنستغرام",
+                form_contact_err: "⚠ يرجى إدخال وسيلة تواصل واحدة على الأقل (البريد الإلكتروني أو تيليغرام أو إنستغرام).",
+                form_dept: "القسم / التخصص بالمدرسة *",
+                form_year: "السنة الدراسية *",
+                form_wing: "القطب الرئيسي المختار *",
+                form_role: "صفة العضوية الأساسية",
+                locked_role_label: "عضو نشط (Membre Actif)",
+                locked_role_tag: "مُثبّت تلقائياً",
+                form_higher_rank_toggle: "هل ترغب في الترشح لمنصب مسؤولية (منسق قطب، خلية التنظيم، الفنون والإعلام، أو المكتب التنفيذي)؟",
+                lead_panel_intro: "إجراءات الترشح لمناصب المسؤولية والتنسيق:",
+                lead_panel_instructions: "تتم دراسة طلبات الانضمام إلى هيئة التنسيق والمكتب التنفيذي مباشرة من طرف الرئاسة. اكتب رسالتك التحفيزية أدناه أو تواصل مباشرة مع الرئيس:",
+                lead_pitch_label: "رسالة الترشح الموجهة للرئيس ونائب الرئيس",
+                form_note: "مواهبك الفنية أو الأدبية أو اهتماماتك العلمية (اختياري)",
+                form_submit: "تأكيد التسجيل وتوليد بطاقة العضوية (PDF)",
+                pass_holder: "اسم العضو / Titulaire",
+                pass_dept: "التخصص",
+                pass_year: "السنة الدراسية",
+                pass_wing: "القطب الرئيسي",
+                btn_download_pass_pdf: "تحميل بطاقة العضوية (PDF)",
+                pass_btn_copy: "نسخ وصل التسجيل",
+                pass_confirmed_title: "تم تسجيل عضويتك وتوليد بطاقتك بنجاح!",
+                pass_confirmed_desc: "تم حفظ بياناتك في السجل الرسمي لأغورا الموسوعيين. اضغط على «تحميل بطاقة العضوية (PDF)» للاحتفاظ ببطاقتك الرسمية.",
+                modal_charter_eyebrow: "وثيقة الاعتماد الرسمي • المدرسة العليا للأساتذة تيزي وزو",
+                modal_charter_title: "القانون الأساسي والنظام الداخلي (12 مادة)",
+                btn_pdf_charter_full: "تحميل القانون الأساسي الكامل (PDF)",
+                btn_copy_charter: "نسخ النص",
+                btn_close: "إغلاق",
+                admin_modal_title: "بوابة المكتب التنفيذي وقاعدة بيانات الأعضاء"
+            }
+        };
+
+        // Store original French HTML strings on load
+        const frOriginals = {};
+
+        // Placeholders translation helper
+        const placeholdersDict = {
+            fr: {
+                memberName: "Ex: Yasmine Mansouri",
+                memberEmail: "etudiant@ens.dz",
+                memberTelegram: "@pseudo ou 0550...",
+                memberInstagram: "@votre_insta",
+                leadershipPitch: "Précisez le poste souhaité (ex: Coordinateur Studio Arts, Responsable Débat, Design/Média, Organisation...) et vos compétences...",
+                memberMotivation: "Ex: Débat, dessin, peinture, théâtre, écriture, cybersécurité, IA, photographie, musique..."
+            },
+            en: {
+                memberName: "e.g., Yasmine Mansouri",
+                memberEmail: "student@ens.dz",
+                memberTelegram: "@username or phone...",
+                memberInstagram: "@your_insta",
+                leadershipPitch: "Specify the desired role (e.g., Studio Arts Coordinator, Debate Lead, Media/Design, Event Org...) and your skills...",
+                memberMotivation: "e.g., Debate, drawing, painting, theater, creative writing, cybersecurity, AI, photography, music..."
+            },
+            ar: {
+                memberName: "مثال: ياسمين منصوري",
+                memberEmail: "student@ens.dz",
+                memberTelegram: "@username أو رقم الهاتف",
+                memberInstagram: "@your_insta",
+                leadershipPitch: "حدّد المنصب المطلوب (مثلاً: منسق الفنون والمسرح، مسؤول المناظرات، التصميم والإعلام، التنظيم...) ومهاراتك...",
+                memberMotivation: "مثال: الخطابة، الرسم، المسرح، الكتابة الأدبية، الخط العربي، الأمن السيبراني، الذكاء الاصطناعي، الموسيقى..."
+            }
+        };
+
+        window.onload = function () {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                frOriginals[key] = el.innerHTML;
+            });
+            loadLocalMembers();
+            renderWingPanel();
+            renderCharterContent();
+            updateLivePassPreview();
+            fetchMembersFromDatabase();
+        };
+
+        // ============================================================================
+        // 5. LANGUAGE & RTL SWITCHER (FR / EN / AR)
+        // ============================================================================
+        function setLanguage(lang) {
+            currentLang = lang;
+
+            // Set HTML lang & RTL/LTR direction automatically
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            // Update language switcher active pill
+            ['fr', 'en', 'ar'].forEach(code => {
+                const btn = document.getElementById('langBtn-' + code);
+                if (btn) {
+                    if (code === lang) {
+                        btn.classList.add('lang-btn-active');
+                    } else {
+                        btn.classList.remove('lang-btn-active');
+                    }
+                }
+            });
+
+            // Translate all data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (lang === 'fr' && frOriginals[key]) {
+                    el.innerHTML = frOriginals[key];
+                } else if (i18nDict[lang] && i18nDict[lang][key]) {
+                    el.innerHTML = i18nDict[lang][key];
+                }
+            });
+
+            // Update input placeholders
+            const ph = placeholdersDict[lang] || placeholdersDict.fr;
+            Object.keys(ph).forEach(id => {
+                const inputEl = document.getElementById(id);
+                if (inputEl) inputEl.placeholder = ph[id];
+            });
+
+            // Re-render dynamic sections
+            renderWingPanel();
+            renderCharterContent();
+            updateLivePassPreview();
+
+            // Update quiz result box if visible
+            if (!document.getElementById('quizResultBox').classList.contains('hidden')) {
+                const wInfo = wingData[recommendedWingKey];
+                document.getElementById('quizResultTitle').textContent = wInfo.title[currentLang];
+                document.getElementById('quizResultDesc').textContent = wInfo.desc[currentLang];
+            }
+        }
+
+        // ============================================================================
+        // 6. DYNAMIC WING PANEL & CHARTER RENDERING
+        // ============================================================================
+        function renderWingPanel() {
+            const data = wingData[activeWing];
+            const badge = data.badge[currentLang] || data.badge.fr;
+            const title = data.title[currentLang] || data.title.fr;
+            const quote = data.quote[currentLang] || data.quote.fr;
+            const desc = data.desc[currentLang] || data.desc.fr;
+            const pillars = data.pillars[currentLang] || data.pillars.fr;
+            const deliverable = data.deliverable[currentLang] || data.deliverable.fr;
+
+            const ctaText = currentLang === 'ar'
+                ? "انضم إلى هذا القطب الآن"
+                : (currentLang === 'en' ? "Join this Wing Now" : "Rejoindre ce Pôle maintenant");
+
+            const panel = document.getElementById('wingContentPanel');
+            panel.innerHTML = `
+                <div class="grid lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <span class="font-mono text-xs uppercase tracking-widest text-gold block">${badge}</span>
+                        <h3 class="font-serif text-3xl sm:text-4xl font-bold text-ivory">${title}</h3>
+                        <p class="font-serif italic text-lg text-gold-light">${quote}</p>
+                        <p class="text-sm sm:text-base text-parchment/85 leading-relaxed pt-1">${desc}</p>
+                        <div class="pt-4 flex flex-wrap items-center gap-4">
+                            <button onclick="chooseWingForApplication('${data.selectValue}')" class="px-6 py-3 rounded-xl bg-gold text-obsidian font-bold text-xs sm:text-sm uppercase tracking-wider hover:brightness-110 transition-all flex items-center gap-2 cursor-pointer">
+                                <span>${ctaText}</span>
+                                <i class="fa-solid fa-arrow-right rtl:rotate-180"></i>
+                            </button>
+                            <span class="text-xs font-mono text-parchment/65">${deliverable}</span>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 space-y-3.5">
+                        ${pillars.map(p => `
+                            <div class="p-4 rounded-xl bg-midnight/90 border border-white/10 flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center text-gold shrink-0 mt-0.5">
+                                    <i class="fa-solid ${p.icon}"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-serif text-lg font-bold text-ivory">${p.name}</h4>
+                                    <p class="text-xs text-parchment/75 leading-relaxed mt-0.5">${p.detail}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCharterContent() {
+            const container = document.getElementById('fullCharterContent');
+            if (container) {
+                container.innerHTML = charterTranslations[currentLang] || charterTranslations.fr;
+            }
+        }
+
+        function switchWingTab(wingKey) {
+            activeWing = wingKey;
+            ['forum', 'lab', 'studio'].forEach(k => {
+                const btn = document.getElementById('tab-' + k);
+                if (k === wingKey) {
+                    btn.classList.add('wing-tab-active');
+                } else {
+                    btn.classList.remove('wing-tab-active');
+                }
+            });
+            renderWingPanel();
+        }
+
+        function selectWingAndScroll(wingKey) {
+            switchWingTab(wingKey);
+            document.getElementById('wings').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function chooseWingForApplication(selectVal) {
+            const selectEl = document.getElementById('memberWing');
+            selectEl.value = selectVal;
+            updateLivePassPreview();
+            document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function preselectEventInForm(eventName) {
+            const motEl = document.getElementById('memberMotivation');
+            const prefix = currentLang === 'ar'
+                ? `أرغب في حضور والمشاركة في فعالية: ${eventName}. `
+                : (currentLang === 'en' ? `I would like to attend the event: ${eventName}. ` : `Je souhaite participer à l'événement : ${eventName}. `);
+            motEl.value = prefix;
+            document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ============================================================================
+        // 7. QUIZ LOGIC
+        // ============================================================================
+        function selectQuizAnswer(qNum, wingKey, btnEl) {
+            quizAnswers[qNum] = wingKey;
+            document.querySelectorAll('.quiz-opt-' + qNum).forEach(el => {
+                el.classList.remove('border-gold', 'bg-gold/15');
+                el.classList.add('border-white/10', 'bg-slateCard/60');
+            });
+            btnEl.classList.remove('border-white/10', 'bg-slateCard/60');
+            btnEl.classList.add('border-gold', 'bg-gold/15');
+
+            if (quizAnswers[1] && quizAnswers[2] && quizAnswers[3]) {
+                const counts = { forum: 0, lab: 0, studio: 0 };
+                counts[quizAnswers[1]]++;
+                counts[quizAnswers[2]]++;
+                counts[quizAnswers[3]]++;
+
+                if (counts.lab >= counts.forum && counts.lab >= counts.studio) {
+                    recommendedWingKey = 'lab';
+                } else if (counts.studio >= counts.forum && counts.studio >= counts.lab) {
+                    recommendedWingKey = 'studio';
+                } else {
+                    recommendedWingKey = 'forum';
+                }
+
+                const resBox = document.getElementById('quizResultBox');
+                const resTitle = document.getElementById('quizResultTitle');
+                const resDesc = document.getElementById('quizResultDesc');
+
+                const wInfo = wingData[recommendedWingKey];
+                resTitle.textContent = wInfo.title[currentLang] || wInfo.title.fr;
+                resDesc.textContent = wInfo.desc[currentLang] || wInfo.desc.fr;
+                resBox.classList.remove('hidden');
+            }
+        }
+
+        function applyQuizRecommendation() {
+            const wInfo = wingData[recommendedWingKey];
+            chooseWingForApplication(wInfo.selectValue);
+        }
+
+        // ============================================================================
+        // 8. LIVE DIGITAL PASS, MULTI-CHANNEL CONTACT & LEADERSHIP SUB-PANEL
+        // ============================================================================
+        function toggleLeadershipPanel() {
+            const checked = document.getElementById('wantsHigherRank').checked;
+            const panel = document.getElementById('leadershipSubPanel');
+            const candidateTag = document.getElementById('passCandidateTag');
+            if (checked) {
+                panel.classList.remove('hidden');
+                candidateTag.classList.remove('hidden');
+            } else {
+                panel.classList.add('hidden');
+                candidateTag.classList.add('hidden');
+            }
+        }
+
+        function clearContactError() {
+            document.getElementById('contactValidationError').classList.add('hidden');
+        }
+
+        function updateLivePassPreview() {
+            const nameVal = document.getElementById('memberName').value.trim();
+            const emailVal = document.getElementById('memberEmail').value.trim();
+            const tgVal = document.getElementById('memberTelegram').value.trim();
+            const igVal = document.getElementById('memberInstagram').value.trim();
+            const deptVal = document.getElementById('memberDept').value;
+            const yearVal = document.getElementById('memberYear').value;
+            const wingVal = document.getElementById('memberWing').value;
+
+            const defaultName = currentLang === 'ar' ? 'طالب(ة) موسوعي(ة)' : (currentLang === 'en' ? 'Future Polymath' : 'Futur(e) Polymathe');
+            document.getElementById('passPreviewName').textContent = nameVal || defaultName;
+            document.getElementById('passPreviewDept').textContent = deptVal;
+            document.getElementById('passPreviewYear').textContent = yearVal;
+            document.getElementById('passPreviewWing').textContent = wingVal;
+
+            const contacts = [];
+            if (tgVal) contacts.push(`TG: ${tgVal}`);
+            if (igVal) contacts.push(`IG: ${igVal}`);
+            if (emailVal) contacts.push(emailVal);
+            document.getElementById('passPreviewContact').textContent = contacts.length > 0 ? contacts.join(' • ') : '@polymath.agora';
+
+            const roleText = currentLang === 'ar'
+                ? 'الصفة: عضو نشط (Membre Actif)'
+                : (currentLang === 'en' ? 'Status: Regular Member (Membre Actif)' : 'Statut : Membre Actif');
+            document.getElementById('passPreviewRole').textContent = roleText;
+        }
+
+        // ============================================================================
+        // 9. FORM SUBMISSION -> SUPABASE DATABASE (`agora_members`) + LOCAL SYNC
+        // ============================================================================
+        async function handleMembershipSubmit(e) {
+            e.preventDefault();
+
+            const nameVal = document.getElementById('memberName').value.trim();
+            const emailVal = document.getElementById('memberEmail').value.trim();
+            const tgVal = document.getElementById('memberTelegram').value.trim();
+            const igVal = document.getElementById('memberInstagram').value.trim();
+            const deptVal = document.getElementById('memberDept').value;
+            const yearVal = document.getElementById('memberYear').value;
+            const wingVal = document.getElementById('memberWing').value;
+            const wantsHigherRank = document.getElementById('wantsHigherRank').checked;
+            const leadershipPitch = document.getElementById('leadershipPitch').value.trim();
+            const noteVal = document.getElementById('memberMotivation').value.trim();
+
+            // Validate that at least ONE contact channel is filled
+            if (!emailVal && !tgVal && !igVal) {
+                const errEl = document.getElementById('contactValidationError');
+                errEl.classList.remove('hidden');
+                errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitMemberBtn');
+            const origBtnHtml = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Enregistrement en cours...</span>`;
+
+            currentMemberCode = 'TPA-' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('passIdBadge').textContent = '#' + currentMemberCode;
+
+            const newMemberRecord = {
+                member_code: currentMemberCode,
+                full_name: nameVal,
+                department: deptVal,
+                study_year: yearVal,
+                primary_wing: wingVal,
+                member_role: 'Membre Actif',
+                wants_higher_rank: wantsHigherRank,
+                leadership_pitch: leadershipPitch || null,
+                telegram: tgVal || null,
+                instagram: igVal || null,
+                email: emailVal || null,
+                motivation_note: noteVal || null,
+                preferred_lang: currentLang,
+                created_at: new Date().toISOString()
+            };
+
+            // Save to local cache immediately
+            const updatedLocal = [newMemberRecord, ...membersCache];
+            saveLocalMembers(updatedLocal);
+
+            // Save to Supabase `agora_members`
+            let savedToSupabase = false;
+            if (supabaseClient) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('agora_members')
+                        .insert([newMemberRecord]);
+                    if (!error) {
+                        savedToSupabase = true;
+                    } else {
+                        console.warn('Supabase insert note (saved in local backup):', error.message);
+                    }
+                } catch (dbErr) {
+                    console.warn('Supabase connection note:', dbErr);
+                }
+            }
+
+            // Update Pass visual status
+            const statusEl = document.getElementById('passStatusIndicator');
+            statusEl.textContent = currentLang === 'ar' ? '✓ بطاقة رسمية مُصادق عليها' : (currentLang === 'en' ? '✓ Official Verified Pass' : '✓ Pass Officiel Validé');
+            statusEl.classList.remove('text-amber-300');
+            statusEl.classList.add('text-emerald-400', 'font-bold');
+
+            const contactSummary = [
+                emailVal ? `Email: ${emailVal}` : null,
+                tgVal ? `Telegram: ${tgVal}` : null,
+                igVal ? `Instagram: ${igVal}` : null
+            ].filter(Boolean).join(' | ');
+
+            lastGeneratedReceipt = `=== CARTE D'ADHÉSION OFFICIELLE : THE POLYMATH AGORA (ENS TIZI OUZOU) ===
+Code Membre : #${currentMemberCode}
+Nom & Prénom : ${nameVal}
+Filière : ${deptVal} (${yearVal})
+Pôle Principal : ${wingVal}
+Statut Officiel : Membre Actif (Regular Member)
+Candidature Responsabilité : ${wantsHigherRank ? 'OUI (' + (leadershipPitch || 'À préciser avec @anomiac.exe') + ')' : 'Non'}
+Contacts : ${contactSummary}
+Intérêts / Talents : ${noteVal || 'N/A'}
+Instagram Officiel : @polymath.agora | Président : @anomiac.exe
+Devise : « Mens Multiplex, Vox Libera »`;
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = origBtnHtml;
+
+            const successBox = document.getElementById('passSuccessActions');
+            successBox.classList.remove('hidden');
+            successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Refresh admin table if loaded
+            renderAdminMembersTable();
+        }
+
+        // ============================================================================
+        // 10. HIGH-RESOLUTION PDF GENERATION (MEMBERSHIP PASS & 12-ARTICLE CHARTER)
+        // ============================================================================
+        function downloadMembershipCardPDF() {
+            const cardEl = document.getElementById('passPreviewCard');
+            const nameVal = document.getElementById('memberName').value.trim() || 'Polymathe';
+            const safeName = nameVal.replace(/[^a-zA-Z0-9_\u0600-\u06FF-]/g, '_');
+
+            if (typeof html2pdf === 'undefined') {
+                window.print();
+                return;
+            }
+
+            const opt = {
+                margin: [12, 12, 12, 12],
+                filename: `Carte_Membre_Polymath_Agora_${safeName}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2.5, backgroundColor: '#070A0F', useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a5', orientation: 'landscape' }
+            };
+
+            html2pdf().set(opt).from(cardEl).save();
+        }
+
+        function downloadCharterPDF() {
+            // Ensure charter content is rendered in current language
+            renderCharterContent();
+            const charterEl = document.getElementById('fullCharterContent');
+
+            if (typeof html2pdf === 'undefined') {
+                openCharterModal();
+                return;
+            }
+
+            // Build a clean formal A4 wrapper for crisp PDF export
+            const wrapper = document.createElement('div');
+            wrapper.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            wrapper.style.padding = '28px';
+            wrapper.style.backgroundColor = '#070A0F';
+            wrapper.style.color = '#F4F1EA';
+            wrapper.style.fontFamily = currentLang === 'ar' ? 'Cairo, sans-serif' : 'Inter, Georgia, serif';
+            wrapper.innerHTML = `
+                <div style="border-bottom: 2px solid #C9A24D; padding-bottom: 14px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 20px; font-weight: bold; color: #FAF8F5;">L'AGORA DES POLYMATHES • THE POLYMATH AGORA</div>
+                        <div style="font-size: 11px; color: #C9A24D; margin-top: 4px;">ÉCOLE NORMALE SUPÉRIEURE (ENS) DE TIZI OUZOU • STATUT CONSTITUTIF OFFICIEL</div>
+                    </div>
+                    <div style="font-size: 11px; color: #E5C77B; font-family: monospace;">« MENS MULTIPLEX, VOX LIBERA »</div>
+                </div>
+                ${charterEl.innerHTML}
+                <div style="margin-top: 24px; padding-top: 12px; border-top: 1px solid rgba(201,162,77,0.3); font-size: 10px; color: #C9A24D; display: flex; justify-content: space-between;">
+                    <span>École Normale Supérieure (ENS) de Tizi Ouzou</span>
+                    <span>Instagram : @polymath.agora • Présidence : @anomiac.exe</span>
+                </div>
+            `;
+
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: `Statut_Officiel_Polymath_Agora_ENS_Tizi_Ouzou_${currentLang.toUpperCase()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, backgroundColor: '#070A0F', useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(wrapper).save();
+        }
+
+        function copyMembershipReceipt() {
+            if (!lastGeneratedReceipt) {
+                updateLivePassPreview();
+                const nameVal = document.getElementById('memberName').value.trim() || 'Futur(e) Polymathe';
+                lastGeneratedReceipt = `=== THE POLYMATH AGORA (ENS TIZI OUZOU) ===\nTitulaire : ${nameVal}\nPôle : ${document.getElementById('memberWing').value}\nStatut : Membre Actif\nInstagram : @polymath.agora`;
+            }
+            const tempInput = document.createElement('textarea');
+            tempInput.value = lastGeneratedReceipt;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btnLabel = document.getElementById('copyReceiptBtnText');
+            const orig = btnLabel.textContent;
+            btnLabel.textContent = currentLang === 'ar' ? '✓ تم النسخ!' : (currentLang === 'en' ? '✓ Copied!' : '✓ Reçu Copié !');
+            setTimeout(() => { btnLabel.textContent = orig; }, 2500);
+        }
+
+        // Modal Controls
+        function openCharterModal() {
+            renderCharterContent();
+            document.getElementById('charterModal').classList.remove('hidden');
+        }
+        function closeCharterModal() {
+            document.getElementById('charterModal').classList.add('hidden');
+        }
+        function copyCharterText() {
+            const text = document.getElementById('fullCharterContent').innerText;
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+
+            const label = document.getElementById('copyCharterBtnLabel');
+            if (label) {
+                const orig = label.textContent;
+                label.textContent = '✓ Copié';
+                setTimeout(() => { label.textContent = orig; }, 2500);
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        // ============================================================================
+        // 11. EXECUTIVE BUREAU ADMIN PORTAL (SUPABASE AUTH + MEMBER TABLE + CSV EXPORT)
+        // ============================================================================
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            fetchMembersFromDatabase();
+        }
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        async function handleAdminLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
+            const errEl = document.getElementById('adminLoginError');
+            errEl.classList.add('hidden');
+
+            if (supabaseClient) {
+                try {
+                    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                    if (error) {
+                        errEl.textContent = `Note Auth: ${error.message}. Vous pouvez utiliser le bouton « Accès Direct Bureau » ci-dessous.`;
+                        errEl.classList.remove('hidden');
+                        return;
+                    }
+                    if (data && data.user) {
+                        enterExecutivePreviewMode();
+                    }
+                } catch (err) {
+                    errEl.textContent = 'Erreur réseau. Utilisez l\'Accès Direct Bureau ci-dessous.';
+                    errEl.classList.remove('hidden');
+                }
+            } else {
+                enterExecutivePreviewMode();
+            }
+        }
+
+        function enterExecutivePreviewMode() {
+            document.getElementById('adminLoginView').classList.add('hidden');
+            document.getElementById('adminDashboardView').classList.remove('hidden');
+            document.getElementById('adminLogoutBtn').classList.remove('hidden');
+            fetchMembersFromDatabase();
+        }
+
+        async function handleAdminLogout() {
+            if (supabaseClient) {
+                try { await supabaseClient.auth.signOut(); } catch (e) {}
+            }
+            document.getElementById('adminDashboardView').classList.add('hidden');
+            document.getElementById('adminLoginView').classList.remove('hidden');
+            document.getElementById('adminLogoutBtn').classList.add('hidden');
+        }
+
+        async function fetchMembersFromDatabase() {
+            loadLocalMembers();
+            if (supabaseClient) {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('agora_members')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+
+                    if (!error && Array.isArray(data)) {
+                        // Merge remote Supabase records with any unsynced local records
+                        const remoteCodes = new Set(data.map(r => r.member_code));
+                        const unsyncedLocal = membersCache.filter(m => !remoteCodes.has(m.member_code));
+                        const merged = [...data, ...unsyncedLocal];
+                        saveLocalMembers(merged);
+                    }
+                } catch (err) {
+                    console.warn('Supabase fetch fallback to local cache:', err);
+                }
+            }
+            renderAdminMembersTable();
+        }
+
+        function renderAdminMembersTable() {
+            const tbody = document.getElementById('adminMembersTableBody');
+            if (!tbody) return;
+
+            // Update KPIs
+            const total = membersCache.length;
+            const forumCount = membersCache.filter(m => (m.primary_wing || '').toUpperCase().includes('FORUM')).length;
+            const labCount = membersCache.filter(m => (m.primary_wing || '').toUpperCase().includes('LAB')).length;
+            const studioCount = membersCache.filter(m => (m.primary_wing || '').toUpperCase().includes('STUDIO')).length;
+            const leadersCount = membersCache.filter(m => m.wants_higher_rank === true).length;
+
+            document.getElementById('kpiTotal').textContent = total;
+            document.getElementById('kpiForum').textContent = forumCount;
+            document.getElementById('kpiLab').textContent = labCount;
+            document.getElementById('kpiStudio').textContent = studioCount;
+            document.getElementById('kpiLeaders').textContent = leadersCount;
+
+            // Apply search and filters
+            const query = (document.getElementById('adminSearchInput')?.value || '').toLowerCase().trim();
+            const wingFilter = document.getElementById('adminWingFilter')?.value || 'ALL';
+            const leaderOnly = document.getElementById('adminLeaderOnlyFilter')?.checked || false;
+
+            const filtered = membersCache.filter(m => {
+                if (wingFilter !== 'ALL' && !(m.primary_wing || '').toUpperCase().includes(wingFilter)) return false;
+                if (leaderOnly && !m.wants_higher_rank) return false;
+                if (query) {
+                    const hay = `${m.member_code} ${m.full_name} ${m.department} ${m.email || ''} ${m.telegram || ''} ${m.instagram || ''} ${m.leadership_pitch || ''}`.toLowerCase();
+                    if (!hay.includes(query)) return false;
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="p-8 text-center text-parchment/50 font-mono">
+                            Aucun membre trouvé pour ces critères. Les nouvelles inscriptions apparaissent ici en temps réel.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(m => {
+                const code = m.member_code || 'TPA-0000';
+                const contactBadges = [
+                    m.email ? `<div class="truncate"><i class="fa-solid fa-envelope text-gold mr-1"></i>${m.email}</div>` : '',
+                    m.telegram ? `<div><i class="fa-brands fa-telegram text-cyan-400 mr-1"></i>${m.telegram}</div>` : '',
+                    m.instagram ? `<div><i class="fa-brands fa-instagram text-rose-400 mr-1"></i>${m.instagram}</div>` : ''
+                ].filter(Boolean).join('');
+
+                const pitchHtml = m.wants_higher_rank
+                    ? `<span class="inline-block px-2 py-0.5 rounded bg-gold/20 text-gold font-mono text-[10px] mb-1">★ Candidat Responsabilité</span><p class="text-[11px] text-parchment/85">${m.leadership_pitch || 'Intéressé(e) par un poste'}</p>`
+                    : `<span class="text-parchment/50 text-[11px]">${m.motivation_note || '—'}</span>`;
+
+                const currentRole = m.member_role || 'Membre Actif';
+
+                return `
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="p-3 font-mono text-gold font-semibold whitespace-nowrap">#${code}</td>
+                        <td class="p-3 font-medium text-ivory">${m.full_name || ''}</td>
+                        <td class="p-3">
+                            <div class="text-ivory">${m.department || ''}</div>
+                            <div class="text-[10px] font-mono text-parchment/60">${m.study_year || ''}</div>
+                        </td>
+                        <td class="p-3 font-mono text-[11px] text-gold-light">${m.primary_wing || ''}</td>
+                        <td class="p-3 font-mono text-[11px] space-y-0.5">${contactBadges || '—'}</td>
+                        <td class="p-3 max-w-xs">${pitchHtml}</td>
+                        <td class="p-3">
+                            <select onchange="promoteMemberRole('${code}', this.value)" class="px-2.5 py-1.5 rounded-lg bg-slateCard border border-gold/40 text-xs text-ivory font-mono">
+                                <option value="Membre Actif" ${currentRole === 'Membre Actif' ? 'selected' : ''}>Membre Actif</option>
+                                <option value="Coordinateur de Pôle" ${currentRole === 'Coordinateur de Pôle' ? 'selected' : ''}>Coordinateur de Pôle</option>
+                                <option value="Cellule Organisation & Média" ${currentRole === 'Cellule Organisation & Média' ? 'selected' : ''}>Cellule Org & Média</option>
+                                <option value="Membre du Bureau Exécutif" ${currentRole === 'Membre du Bureau Exécutif' ? 'selected' : ''}>Membre du Bureau</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function promoteMemberRole(memberCode, newRole) {
+            // Update local cache
+            const idx = membersCache.findIndex(m => m.member_code === memberCode);
+            if (idx !== -1) {
+                membersCache[idx].member_role = newRole;
+                saveLocalMembers(membersCache);
+            }
+
+            // Update Supabase
+            if (supabaseClient) {
+                try {
+                    await supabaseClient
+                        .from('agora_members')
+                        .update({ member_role: newRole })
+                        .eq('member_code', memberCode);
+                } catch (e) {
+                    console.warn('Role promotion saved locally:', e);
+                }
+            }
+            renderAdminMembersTable();
+        }
+
+        function exportMembersToCSV() {
+            if (!membersCache || membersCache.length === 0) return;
+
+            const headers = [
+                'Code Membre', 'Nom Complet', 'Departement', 'Annee', 'Pole Principal',
+                'Statut / Rang', 'Candidat Responsabilite', 'Pitch Leadership',
+                'Email', 'Telegram', 'Instagram', 'Note / Talents', 'Langue', 'Date Inscription'
+            ];
+
+            const escapeCsv = (val) => {
+                if (val === null || val === undefined) return '""';
+                const str = String(val).replace(/"/g, '""');
+                return `"${str}"`;
+            };
+
+            const rows = membersCache.map(m => [
+                m.member_code,
+                m.full_name,
+                m.department,
+                m.study_year,
+                m.primary_wing,
+                m.member_role || 'Membre Actif',
+                m.wants_higher_rank ? 'OUI' : 'NON',
+                m.leadership_pitch || '',
+                m.email || '',
+                m.telegram || '',
+                m.instagram || '',
+                m.motivation_note || '',
+                m.preferred_lang || 'fr',
+                m.created_at || ''
+            ].map(escapeCsv).join(','));
+
+            const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `Registre_Membres_Polymath_Agora_ENS_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
